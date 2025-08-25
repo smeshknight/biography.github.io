@@ -18,6 +18,7 @@
             --gray: #888888;
             --light-gray: #1a1a1a;
             --accent: #00ff00;
+            --accent-glow: rgba(0, 255, 0, 0.3);
         }
 
         body {
@@ -192,15 +193,49 @@
             }
         }
 
+        @keyframes text-glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 5px var(--accent-glow); }
+            50% { text-shadow: 0 0 15px var(--accent-glow), 0 0 25px var(--accent-glow); }
+        }
+
+        @keyframes subtitle-glitch {
+            0%, 100% { 
+                transform: translateX(0) skewX(0);
+                opacity: 0.8;
+            }
+            25% { 
+                transform: translateX(-1px) skewX(-2deg);
+                opacity: 0.9;
+            }
+            50% { 
+                transform: translateX(1px) skewX(2deg);
+                opacity: 0.7;
+            }
+            75% { 
+                transform: translateX(-2px) skewX(-1deg);
+                opacity: 0.85;
+            }
+        }
+
         /* Навигация */
         .top-nav {
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             padding: 1.5rem 0;
             border-bottom: 1px solid var(--gray);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
         .nav-container {
@@ -215,20 +250,41 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.5rem;
+            position: relative;
         }
 
         .logo h1 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--white);
+            position: relative;
+            animation: glow 3s ease-in-out infinite;
         }
 
-        /* Убрана линия перед BIO */
-        .logo-line {
-            display: none; /* Убираем линию полностью */
+        .logo-accent {
+            color: var(--accent);
+            animation: text-glitch 0.5s infinite;
+        }
+
+        .logo-subtitle {
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+            position: absolute;
+            bottom: -12px;
+            right: 0;
+            font-weight: 500;
+            text-transform: uppercase;
+            animation: subtitle-glitch 2s ease-in-out infinite;
+            opacity: 0.8;
+            background: linear-gradient(45deg, var(--accent), #00cc00, #00ff66);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
         }
 
         /* Бургер-меню */
@@ -263,6 +319,7 @@
 
         .burger-menu.active .burger-line:nth-child(1) {
             transform: rotate(45deg) translate(6px, 6px);
+            background: var(--accent);
         }
 
         .burger-menu.active .burger-line:nth-child(2) {
@@ -271,6 +328,7 @@
 
         .burger-menu.active .burger-line:nth-child(3) {
             transform: rotate(-45deg) translate(6px, -6px);
+            background: var(--accent);
         }
 
         /* Боковое меню */
@@ -280,7 +338,7 @@
             top: 0;
             height: 100vh;
             width: 300px;
-            background: var(--black);
+            background: rgba(0, 0, 0, 0.98);
             border-left: 1px solid var(--gray);
             transition: right 0.4s ease;
             z-index: 999;
@@ -288,6 +346,7 @@
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
+            backdrop-filter: blur(10px);
         }
 
         .sidebar.active {
@@ -312,9 +371,27 @@
             color: var(--accent);
         }
 
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-item:hover::before {
+            opacity: 1;
+        }
+
         /* Основной контент */
         .main-content {
-            margin-top: 100px;
+            margin-top: 120px;
             padding: 2rem;
             flex: 1;
         }
@@ -342,14 +419,14 @@
         }
 
         .section-title {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 2rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 4px;
             position: relative;
             display: inline-block;
-            padding-bottom: 1rem;
+            padding-bottom: 1.5rem;
         }
 
         .section-title::after {
@@ -358,45 +435,47 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 2px;
-            background: var(--white);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+            animation: glow 3s ease-in-out infinite;
         }
 
         .empty-text {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--gray);
             font-weight: 300;
             letter-spacing: 1px;
             margin-bottom: 3rem;
+            line-height: 1.8;
         }
 
-        /* Социальные иконки - ПЕРЕМЕЩЕНЫ ВНИЗ */
+        /* Социальные иконки */
         .social-section {
-            margin-top: auto; /* Это заставляет блок опуститься вниз */
-            padding: 3rem 0;
+            margin-top: auto;
+            padding: 4rem 0;
             text-align: center;
         }
 
         .contact-label {
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 300;
             color: var(--gray);
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             display: block;
         }
 
         .social-footer {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 2rem;
         }
 
         .social-btn {
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             border: 1px solid var(--white);
             border-radius: 50%;
             display: flex;
@@ -406,7 +485,6 @@
             position: relative;
             overflow: hidden;
             background: transparent;
-            /* Убираем стандартные стили ссылок и кнопок */
             text-decoration: none;
             outline: none;
             cursor: pointer;
@@ -429,11 +507,12 @@
         }
 
         .social-btn:hover {
-            color: var(--black);
+            border-color: var(--accent);
+            transform: translateY(-5px);
         }
 
         .social-icon {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: var(--white);
             transition: all 0.4s ease;
         }
@@ -443,27 +522,21 @@
             transform: rotate(10deg) scale(1.1);
         }
 
-        /* Убираем синие линии у социальных кнопок */
-        .social-btn:focus,
-        .social-btn:active {
-            outline: none;
-            box-shadow: none;
-        }
-
         /* Уведомление о копировании */
         .copy-notification {
             position: fixed;
             bottom: -100px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--white);
+            background: var(--accent);
             color: var(--black);
-            padding: 1rem 2rem;
+            padding: 1.2rem 2.5rem;
             border-radius: 4px;
-            font-weight: 500;
+            font-weight: 600;
             transition: bottom 0.5s ease;
             z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 20px var(--accent-glow);
+            letter-spacing: 1px;
         }
 
         .copy-notification.active {
@@ -473,13 +546,13 @@
         /* Футер */
         .bottom-footer {
             background: var(--black);
-            padding: 2rem 0;
+            padding: 2.5rem 0;
             border-top: 1px solid var(--gray);
             text-align: center;
         }
 
         .footer-text {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--gray);
             letter-spacing: 2px;
         }
@@ -487,20 +560,27 @@
         /* Адаптивность */
         @media (max-width: 768px) {
             .logo h1 {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
+                letter-spacing: 2px;
+            }
+            
+            .logo-subtitle {
+                font-size: 0.6rem;
+                bottom: -10px;
+                letter-spacing: 2px;
             }
             
             .section-title {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .social-btn {
-                width: 50px;
-                height: 50px;
+                width: 55px;
+                height: 55px;
             }
             
             .social-icon {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
             }
             
             .bg-circle, .bg-triangle, .bg-square {
@@ -508,7 +588,11 @@
             }
             
             .social-section {
-                padding: 2rem 0;
+                padding: 3rem 0;
+            }
+            
+            .social-footer {
+                gap: 1.5rem;
             }
             
             /* Уменьшаем количество частиц на мобильных */
@@ -522,6 +606,32 @@
                 display: block;
             }
         }
+
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 1.4rem;
+            }
+            
+            .logo-subtitle {
+                font-size: 0.5rem;
+                bottom: -8px;
+                letter-spacing: 1px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .social-btn {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .main-content {
+                margin-top: 100px;
+                padding: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -532,26 +642,25 @@
         <div class="bg-square"></div>
     </div>
 
-    <!-- НОВЫЕ АНИМИРОВАННЫЕ ЭЛЕМЕНТЫ -->
+    <!-- Анимированные элементы -->
     <div class="floating-particles" id="particles-container"></div>
     
-    <!-- Плавающие иконки (можно заменить на любые другие из Font Awesome) -->
     <i class="fab fa-html5 floating-icon" style="top: 20%; left: 10%; animation-delay: 0s;"></i>
     <i class="fab fa-css3-alt floating-icon" style="top: 40%; left: 80%; animation-delay: 5s;"></i>
     <i class="fab fa-js floating-icon" style="top: 70%; left: 15%; animation-delay: 10s;"></i>
     <i class="fas fa-code floating-icon" style="top: 30%; left: 65%; animation-delay: 15s;"></i>
     
-    <!-- Пульсирующие точки -->
     <div class="pulse-dot" style="top: 25%; left: 25%; animation-delay: 0s;"></div>
     <div class="pulse-dot" style="top: 65%; left: 75%; animation-delay: 1s;"></div>
     <div class="pulse-dot" style="top: 45%; left: 45%; animation-delay: 2s;"></div>
 
-    <!-- Верхняя навигация -->
+    <!-- Навигация -->
     <nav class="top-nav">
         <div class="nav-container">
             <div class="logo">
-                <div class="logo-line"></div>
-                <h1>BIO</h1>
+                <h1>BIO<span class="logo-accent">G</span>RAPHY
+                    <span class="logo-subtitle">FEDORYA</span>
+                </h1>
             </div>
             <div class="burger-menu" id="burgerMenu">
                 <div class="burger-line"></div>
@@ -570,7 +679,6 @@
 
     <!-- Основной контент -->
     <main class="main-content">
-        <!-- Страница 1 -->
         <section id="page1" class="page-section">
             <div class="container">
                 <h2 class="section-title">Личная жизнь</h2>
@@ -578,7 +686,6 @@
             </div>
         </section>
 
-        <!-- Страница 2 -->
         <section id="page2" class="page-section">
             <div class="container">
                 <h2 class="section-title">Достижения</h2>
@@ -586,7 +693,6 @@
             </div>
         </section>
 
-        <!-- Страница 3 -->
         <section id="page3" class="page-section">
             <div class="container">
                 <h2 class="section-title">Проекты</h2>
@@ -594,7 +700,7 @@
             </div>
         </section>
         
-        <!-- Социальные иконки ПЕРЕМЕЩЕНЫ В САМЫЙ НИЗ -->
+        <!-- Социальные иконки -->
         <div class="social-section">
             <span class="contact-label">Свяжитесь со мной</span>
             <div class="social-footer">
@@ -642,14 +748,12 @@
                     const particle = document.createElement('div');
                     particle.classList.add('particle');
                     
-                    // Случайные параметры
                     const size = Math.random() * 8 + 2;
                     const posX = Math.random() * 100;
                     const posY = Math.random() * 100;
                     const animationDelay = Math.random() * 20;
                     const animationDuration = Math.random() * 10 + 15;
                     
-                    // Применение стилей
                     particle.style.width = `${size}px`;
                     particle.style.height = `${size}px`;
                     particle.style.left = `${posX}%`;
@@ -707,22 +811,18 @@
 
             // Копирование Discord ника
             discordBtn.addEventListener('click', function() {
-                // Выделяем текст в скрытом textarea
                 discordNickname.select();
-                discordNickname.setSelectionRange(0, 99999); // Для мобильных устройств
+                discordNickname.setSelectionRange(0, 99999);
                 
                 try {
-                    // Пытаемся использовать современный API
                     const successful = navigator.clipboard.writeText('fame24');
                     successful.then(() => {
                         showCopyNotification();
                     }).catch(err => {
-                        // Если современный API не сработал, используем старый метод
                         document.execCommand('copy');
                         showCopyNotification();
                     });
                 } catch (err) {
-                    // Если и это не сработало, используем старый метод
                     try {
                         document.execCommand('copy');
                         showCopyNotification();
@@ -743,8 +843,8 @@
 
             // Инициализация
             window.addEventListener('scroll', checkScroll);
-            checkScroll(); // Проверить при загрузке
-            createParticles(); // Создать частицы
+            checkScroll();
+            createParticles();
         });
     </script>
 </body>
