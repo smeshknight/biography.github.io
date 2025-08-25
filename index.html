@@ -468,6 +468,9 @@
     <!-- Уведомление о копировании -->
     <div class="copy-notification" id="copyNotification">Copied / Скопировано</div>
 
+    <!-- Скрытое текстовое поле для копирования -->
+    <textarea id="discordNickname" style="position: absolute; left: -9999px;">fame24</textarea>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const burgerMenu = document.getElementById('burgerMenu');
@@ -475,6 +478,7 @@
             const pageSections = document.querySelectorAll('.page-section');
             const discordBtn = document.getElementById('discordBtn');
             const copyNotification = document.getElementById('copyNotification');
+            const discordNickname = document.getElementById('discordNickname');
 
             // Бургер-меню
             burgerMenu.addEventListener('click', function() {
@@ -512,19 +516,40 @@
                 });
             }
 
+            // Функция для показа уведомления
+            function showCopyNotification() {
+                copyNotification.classList.add('active');
+                setTimeout(() => {
+                    copyNotification.classList.remove('active');
+                }, 3000);
+            }
+
             // Копирование Discord ника
             discordBtn.addEventListener('click', function() {
-                navigator.clipboard.writeText('fame24').then(() => {
-                    // Показываем уведомление
-                    copyNotification.classList.add('active');
-                    
-                    // Скрываем уведомление через 3 секунды
-                    setTimeout(() => {
-                        copyNotification.classList.remove('active');
-                    }, 3000);
-                }).catch(err => {
-                    console.error('Ошибка при копировании: ', err);
-                });
+                // Выделяем текст в скрытом textarea
+                discordNickname.select();
+                discordNickname.setSelectionRange(0, 99999); // Для мобильных устройств
+                
+                try {
+                    // Пытаемся использовать современный API
+                    const successful = navigator.clipboard.writeText('fame24');
+                    successful.then(() => {
+                        showCopyNotification();
+                    }).catch(err => {
+                        // Если современный API не сработал, используем старый метод
+                        document.execCommand('copy');
+                        showCopyNotification();
+                    });
+                } catch (err) {
+                    // Если и это не сработало, используем старый метод
+                    try {
+                        document.execCommand('copy');
+                        showCopyNotification();
+                    } catch (err) {
+                        console.error('Не удалось скопировать текст: ', err);
+                        alert('Не удалось скопировать никнейм. Скопируйте вручную: fame24');
+                    }
+                }
             });
 
             // Закрытие меню при клике вне его
