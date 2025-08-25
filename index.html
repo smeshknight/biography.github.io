@@ -49,11 +49,11 @@
             50% { transform: translateY(-15px) rotate(3deg); }
         }
 
-        /* Верхняя навигация */
+        /* Верхняя навигация - убрано верхнее пространство */
         .top-nav {
             background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(20px);
-            padding: 1.5rem 0;
+            padding: 1rem 0;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             position: fixed;
             top: 0;
@@ -79,7 +79,7 @@
         }
 
         .logo h1 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 800;
             letter-spacing: 3px;
             text-transform: uppercase;
@@ -92,20 +92,20 @@
         }
 
         .palette-icon {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             position: absolute;
-            right: -40px;
+            right: -35px;
             top: 50%;
             transform: translateY(-50%);
             filter: brightness(0) invert(1);
             opacity: 0.9;
         }
 
-        /* Бургер-меню */
+        /* Бургер-меню - поднято выше */
         .burger-menu {
             position: fixed;
-            top: 2.1rem;
+            top: 1.6rem;
             right: 2rem;
             z-index: 1001;
             cursor: pointer;
@@ -148,7 +148,7 @@
             border-left: 1px solid rgba(255,255,255,0.1);
             transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 999;
-            padding: 100px 2rem 2rem 2rem;
+            padding: 80px 2rem 2rem 2rem;
             overflow-y: auto;
             transform-style: preserve-3d;
         }
@@ -166,10 +166,10 @@
         .menu-item {
             color: #fff;
             text-decoration: none;
-            padding: 1.8rem 2rem;
+            padding: 1.6rem 2rem;
             transition: all 0.4s ease;
             font-weight: 300;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             position: relative;
@@ -213,9 +213,9 @@
             transform: translateX(0);
         }
 
-        /* Основной контент */
+        /* Основной контент - уменьшен отступ */
         .main-content {
-            margin-top: 120px;
+            margin-top: 80px;
             padding: 2rem;
             transform-style: preserve-3d;
         }
@@ -225,7 +225,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 6rem 2rem;
+            padding: 5rem 2rem;
             opacity: 0;
             transform: translateY(100px) rotateX(15deg);
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -323,8 +323,8 @@
         }
 
         .text-content h2, .full-text h2 {
-            font-size: 3.2rem;
-            margin-bottom: 2.5rem;
+            font-size: 3rem;
+            margin-bottom: 2rem;
             font-weight: 700;
             text-transform: uppercase;
             background: linear-gradient(45deg, #fff, #aaa);
@@ -334,7 +334,7 @@
         }
 
         .empty-text {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: rgba(255, 255, 255, 0.6);
             font-weight: 300;
             font-style: italic;
@@ -345,7 +345,7 @@
         /* Социальные иконки с надписью */
         .social-section {
             text-align: center;
-            margin: 5rem 0 3rem 0;
+            margin: 4rem 0 3rem 0;
             transform-style: preserve-3d;
         }
 
@@ -368,8 +368,8 @@
         }
 
         .social-footer-btn {
-            width: 70px;
-            height: 70px;
+            width: 65px;
+            height: 65px;
             border: 2px solid rgba(255,255,255,0.2);
             border-radius: 50%;
             display: flex;
@@ -389,8 +389,8 @@
         }
 
         .social-footer-icon {
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             object-fit: contain;
             transition: transform 0.3s ease;
         }
@@ -398,7 +398,7 @@
         /* Футер */
         .bottom-footer {
             background: rgba(0, 0, 0, 0.9);
-            padding: 3rem 0;
+            padding: 2.5rem 0;
             border-top: 1px solid rgba(255,255,255,0.1);
             text-align: center;
             backdrop-filter: blur(20px);
@@ -407,15 +407,16 @@
 
         /* Адаптивность */
         @media (max-width: 768px) {
-            .logo h1 { font-size: 2.2rem; }
-            .palette-icon { width: 24px; height: 24px; right: -30px; }
-            .burger-menu { top: 1.8rem; right: 1.5rem; }
-            .sidebar { width: 280px; padding: 80px 1.5rem 2rem 1.5rem; }
-            .menu-item { font-size: 1.2rem; padding: 1.5rem 1.5rem; }
-            .text-content h2, .full-text h2 { font-size: 2.5rem; }
-            .empty-text { font-size: 1.2rem; }
-            .social-footer-btn { width: 60px; height: 60px; }
-            .social-footer-icon { width: 25px; height: 25px; }
+            .logo h1 { font-size: 2rem; }
+            .palette-icon { width: 22px; height: 22px; right: -28px; }
+            .burger-menu { top: 1.4rem; right: 1.5rem; }
+            .sidebar { width: 280px; padding: 70px 1.5rem 2rem 1.5rem; }
+            .menu-item { font-size: 1.1rem; padding: 1.3rem 1.5rem; }
+            .text-content h2, .full-text h2 { font-size: 2.3rem; }
+            .empty-text { font-size: 1.1rem; }
+            .social-footer-btn { width: 55px; height: 55px; }
+            .social-footer-icon { width: 23px; height: 23px; }
+            .main-content { margin-top: 70px; padding: 1.5rem; }
             
             .bg-shape {
                 transform: scale(0.7);
