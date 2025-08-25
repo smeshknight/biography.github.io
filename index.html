@@ -8,7 +8,7 @@
     <style>
         * {
             margin: 0;
-            padding: 0;
+            padding: 0; 
             box-sizing: border-box;
         }
 
@@ -305,6 +305,7 @@
             position: relative;
             animation: glow 3s ease-in-out infinite;
             text-shadow: 0 2px 10px rgba(255, 204, 0, 0.2);
+            cursor: default;
         }
 
         .logo-accent {
@@ -400,23 +401,24 @@
             margin-left: 0;
         }
 
-        /* Боковое меню - УСКОРЕННАЯ АНИМАЦИЯ */
+        /* Боковое меню - УСКОРЕННАя АНИМАЦИЯ */
         .sidebar {
             position: fixed;
             right: -100%;
-            top: 0;
-            height: 100vh;
-            width: 320px;
-            background: var(--menu-bg);
-            transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1); /* Ускорено */
-            z-index: 998;
-            padding: 120px 2rem 2rem 2rem;
+            top: 20px;
+            height: auto;
+            width: 280px;
+            background: var(--nav-bg);
+            transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 999;
+            padding: 70px 2rem 2rem 2rem;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 1.5rem;
             backdrop-filter: blur(20px);
             box-shadow: -10px 0 50px rgba(0, 0, 0, 0.5);
-            border-left: 1px solid rgba(255, 204, 0, 0.1);
+            border: 1px solid rgba(255, 204, 0, 0.1);
+            border-radius: 16px;
         }
 
         .sidebar::before {
@@ -427,30 +429,32 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, rgba(255, 204, 0, 0.05) 0%, transparent 50%);
+            border-radius: 16px;
             pointer-events: none;
         }
 
         .sidebar.active {
-            right: 0;
-            animation: menuSlide 0.4s ease-out; /* Ускорено */
+            right: 20px;
+            animation: menuSlide 0.4s ease-out;
         }
 
         .menu-item {
             color: var(--white);
             text-decoration: none;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 300;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             padding: 1rem 1.5rem;
             position: relative;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Ускорено */
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             border-radius: 8px;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
             transform: translateX(50px);
             opacity: 0;
-            animation: menuItemSlide 0.4s ease-out forwards; /* Ускорено */
+            animation: menuItemSlide 0.4s ease-out forwards;
+            text-align: center;
         }
 
         .sidebar.active .menu-item:nth-child(1) { animation-delay: 0.1s; }
@@ -475,7 +479,7 @@
             background: var(--accent);
             border-radius: 50%;
             transform: translateY(-50%) scale(0);
-            transition: transform 0.2s ease; /* Ускорено */
+            transition: transform 0.2s ease;
             box-shadow: 0 0 10px var(--accent);
         }
 
@@ -492,7 +496,7 @@
             width: 0;
             height: 1px;
             background: var(--accent);
-            transition: width 0.2s ease; /* Ускорено */
+            transition: width 0.2s ease;
         }
 
         .menu-item:hover::after {
@@ -670,18 +674,47 @@
             bottom: 30px;
         }
 
-        /* Футер */
+        /* Футер - СТИЛИЗОВАННЫЙ КАК НАВИГАЦИОННЫЙ ОСТРОВОК */
         .bottom-footer {
-            background: var(--black);
-            padding: 2.5rem 0;
-            border-top: 1px solid var(--gray);
-            text-align: center;
+            background: var(--nav-bg);
+            padding: 1.5rem 0;
+            position: relative;
+            margin: 2rem auto 2rem auto;
+            width: 95%;
+            max-width: 1200px;
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 204, 0, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .bottom-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 204, 0, 0.05) 0%, transparent 50%);
+            border-radius: 16px;
+            pointer-events: none;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .footer-text {
             font-size: 1rem;
-            color: var(--gray);
+            color: var(--white);
             letter-spacing: 2px;
+            font-weight: 300;
+            position: relative;
         }
 
         /* Адаптивность */
@@ -749,13 +782,31 @@
             }
             
             .sidebar {
-                width: 280px;
-                padding: 100px 1.5rem 2rem 1.5rem;
+                width: 250px;
+                padding: 60px 1.5rem 1.5rem 1.5rem;
+                top: 10px;
+                right: -100%;
+            }
+            
+            .sidebar.active {
+                right: 10px;
             }
             
             .menu-item {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
                 padding: 0.8rem 1rem;
+            }
+            
+            /* Футер на мобильных */
+            .bottom-footer {
+                width: 92%;
+                padding: 1.2rem 0;
+            }
+            
+            .footer-container {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
             }
             
             /* Уменьшаем количество частиц на мобильных */
@@ -815,6 +866,30 @@
             #page2, #page3 {
                 margin: 4rem 0;
             }
+            
+            .sidebar {
+                width: 220px;
+                padding: 50px 1rem 1rem 1rem;
+                top: 5px;
+            }
+            
+            .sidebar.active {
+                right: 5px;
+            }
+            
+            .menu-item {
+                font-size: 1rem;
+                padding: 0.7rem 0.8rem;
+            }
+            
+            .bottom-footer {
+                width: 90%;
+                padding: 1rem 0;
+            }
+            
+            .footer-text {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -838,7 +913,7 @@
     <div class="pulse-dot" style="top: 65%; left: 75%; animation-delay: 1s;"></div>
     <div class="pulse-dot" style="top: 45%; left: 45%; animation-delay: 2s;"></div>
 
-    <!-- Навигация - СТИЛИЗОВАННЫЙ ОСТРОВОК -->
+    <!-- Навигация - СТИЛИЗОВАННЫЙ ВЕРХНИЙ ОСТРОВОК -->
     <nav class="top-nav">
         <div class="nav-container">
             <div class="logo">
@@ -854,7 +929,7 @@
         </div>
     </nav>
 
-    <!-- Боковое меню -->
+    <!-- Боковое меню - ОСТРОВОК С НАВИГАЦИЕЙ -->
     <aside class="sidebar" id="sidebar">
         <a href="#page1" class="menu-item">О себе</a>
         <a href="#page2" class="menu-item">Достижения</a>
@@ -891,37 +966,31 @@
                 <a href="https://t.me/+fe73LRBQUlcxYmQy" class="social-btn" target="_blank">
                     <i class="fab fa-telegram social-icon"></i>
                 </a>
-                <button class="social-btn" id="discordBtn">
-                    <i class="fab fa-discord social-icon"></i>
-                </button>
-                <a href="mailto:example@example.com" class="social-btn">
+                <a href="https://vk.com/steelzzzzzz" class="social-btn" target="_blank">
+                    <i class="fab fa-vk social-icon"></i>
+                </a>
+                <a href="mailto:fedoryakovchik@gmail.com" class="social-btn">
                     <i class="far fa-envelope social-icon"></i>
                 </a>
             </div>
         </div>
     </main>
 
-    <!-- Футер -->
+    <!-- Футер - БЕЗ НАВИГАЦИИ -->
     <footer class="bottom-footer">
-        <div class="container">
-            <p class="footer-text">Created with passion • 2024</p>
+        <div class="footer-container">
+            <p class="footer-text">Created with passion • 2025</p>
         </div>
     </footer>
 
     <!-- Уведомление о копировании -->
     <div class="copy-notification" id="copyNotification">Copied / Скопировано</div>
 
-    <!-- Скрытое текстовое поле для копирования -->
-    <textarea id="discordNickname" style="position: absolute; left: -9999px;">fame24</textarea>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const burgerMenu = document.getElementById('burgerMenu');
             const sidebar = document.getElementById('sidebar');
             const pageSections = document.querySelectorAll('.page-section');
-            const discordBtn = document.getElementById('discordBtn');
-            const copyNotification = document.getElementById('copyNotification');
-            const discordNickname = document.getElementById('discordNickname');
             const particlesContainer = document.getElementById('particles-container');
 
             // Создание частиц
@@ -950,16 +1019,10 @@
             }
 
             // Бургер-меню
-            burgerMenu.addEventListener('click', function() {
+            burgerMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
                 this.classList.toggle('active');
                 sidebar.classList.toggle('active');
-                
-                // Блокировка скролла при открытом меню
-                if (sidebar.classList.contains('active')) {
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    document.body.style.overflow = '';
-                }
             });
 
             // Закрытие меню при клике на ссылку
@@ -972,14 +1035,13 @@
                     if (targetSection) {
                         sidebar.classList.remove('active');
                         burgerMenu.classList.remove('active');
-                        document.body.style.overflow = '';
                         
                         setTimeout(() => {
                             targetSection.scrollIntoView({
                                 behavior: 'smooth',
                                 block: 'start'
                             });
-                        }, 200); // Ускорено
+                        }, 200);
                     }
                 });
             });
@@ -996,38 +1058,6 @@
                 });
             }
 
-            // Функция для показа уведомления
-            function showCopyNotification() {
-                copyNotification.classList.add('active');
-                setTimeout(() => {
-                    copyNotification.classList.remove('active');
-                }, 3000);
-            }
-
-            // Копирование Discord ника
-            discordBtn.addEventListener('click', function() {
-                discordNickname.select();
-                discordNickname.setSelectionRange(0, 99999);
-                
-                try {
-                    const successful = navigator.clipboard.writeText('fame24');
-                    successful.then(() => {
-                        showCopyNotification();
-                    }).catch(err => {
-                        document.execCommand('copy');
-                        showCopyNotification();
-                    });
-                } catch (err) {
-                    try {
-                        document.execCommand('copy');
-                        showCopyNotification();
-                    } catch (err) {
-                        console.error('Не удалось скопировать текст: ', err);
-                        alert('Не удалось скопировать никнейм. Скопируйте вручную: fame24');
-                    }
-                }
-            });
-
             // Закрытие меню при клике вне его
             document.addEventListener('click', function(e) {
                 if (sidebar.classList.contains('active') && 
@@ -1035,7 +1065,6 @@
                     !burgerMenu.contains(e.target)) {
                     sidebar.classList.remove('active');
                     burgerMenu.classList.remove('active');
-                    document.body.style.overflow = '';
                 }
             });
 
@@ -1044,7 +1073,6 @@
                 if (e.key === 'Escape' && sidebar.classList.contains('active')) {
                     sidebar.classList.remove('active');
                     burgerMenu.classList.remove('active');
-                    document.body.style.overflow = '';
                 }
             });
 
