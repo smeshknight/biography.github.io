@@ -27,6 +27,8 @@
             min-height: 100vh;
             overflow-x: hidden;
             line-height: 1.6;
+            display: flex;
+            flex-direction: column;
         }
 
         /* Геометрический фон */
@@ -195,6 +197,7 @@
         .main-content {
             margin-top: 100px;
             padding: 2rem;
+            flex: 1;
         }
 
         .page-section {
@@ -249,9 +252,11 @@
             margin-bottom: 3rem;
         }
 
-        /* Социальные иконки */
+        /* Социальные иконки - ПЕРЕМЕЩЕНЫ ВНИЗ */
         .social-section {
-            margin-top: 3rem;
+            margin-top: auto; /* Это заставляет блок опуститься вниз */
+            padding: 3rem 0;
+            text-align: center;
         }
 
         .contact-label {
@@ -382,6 +387,10 @@
             .bg-circle, .bg-triangle, .bg-square {
                 transform: scale(0.7);
             }
+            
+            .social-section {
+                padding: 2rem 0;
+            }
         }
     </style>
 </head>
@@ -438,24 +447,24 @@
             <div class="container">
                 <h2 class="section-title">Проекты</h2>
                 <p class="empty-text">Информация появится здесь скоро...</p>
-                
-                <!-- Социальные иконки -->
-                <div class="social-section">
-                    <span class="contact-label">Свяжитесь со мной</span>
-                    <div class="social-footer">
-                        <a href="https://t.me/+fe73LRBQUlcxYmQy" class="social-btn" target="_blank">
-                            <i class="fab fa-telegram social-icon"></i>
-                        </a>
-                        <button class="social-btn" id="discordBtn">
-                            <i class="fab fa-discord social-icon"></i>
-                        </button>
-                        <a href="mailto:example@example.com" class="social-btn">
-                            <i class="far fa-envelope social-icon"></i>
-                        </a>
-                    </div>
-                </div>
             </div>
         </section>
+        
+        <!-- Социальные иконки ПЕРЕМЕЩЕНЫ В САМЫЙ НИЗ -->
+        <div class="social-section">
+            <span class="contact-label">Свяжитесь со мной</span>
+            <div class="social-footer">
+                <a href="https://t.me/+fe73LRBQUlcxYmQy" class="social-btn" target="_blank">
+                    <i class="fab fa-telegram social-icon"></i>
+                </a>
+                <button class="social-btn" id="discordBtn">
+                    <i class="fab fa-discord social-icon"></i>
+                </button>
+                <a href="mailto:example@example.com" class="social-btn">
+                    <i class="far fa-envelope social-icon"></i>
+                </a>
+            </div>
+        </div>
     </main>
 
     <!-- Футер -->
