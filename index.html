@@ -17,8 +17,8 @@
             --white: #ffffff;
             --gray: #888888;
             --light-gray: #1a1a1a;
-            --accent: #00ff00;
-            --accent-glow: rgba(0, 255, 0, 0.3);
+            --accent: #ffcc00;
+            --accent-glow: rgba(255, 204, 0, 0.3);
         }
 
         body {
@@ -158,7 +158,7 @@
                 transform: translateY(-30vh) translateX(-20vw) rotate(270deg);
                 opacity: 0.03;
             }
-            100% {
+            to {
                 transform: translateY(0) translateX(0) rotate(360deg);
                 opacity: 0.1;
             }
@@ -177,7 +177,7 @@
             75% {
                 transform: translateY(30vh) translateX(75vw) rotate(270deg);
             }
-            100% {
+            to {
                 transform: translateY(0) translateX(100vw) rotate(360deg);
             }
         }
@@ -199,7 +199,7 @@
             40% { transform: translate(-2px, -2px); }
             60% { transform: translate(2px, 2px); }
             80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
+            to { transform: translate(0); }
         }
 
         @keyframes glow {
@@ -280,11 +280,11 @@
             text-transform: uppercase;
             animation: subtitle-glitch 2s ease-in-out infinite;
             opacity: 0.8;
-            background: linear-gradient(45deg, var(--accent), #00cc00, #00ff66);
+            background: linear-gradient(45deg, #ffcc00, #ffdd00, #ffee00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+            text-shadow: 0 0 8px rgba(255, 204, 0, 0.3);
         }
 
         /* Бургер-меню */
@@ -672,7 +672,7 @@
 
     <!-- Боковое меню -->
     <aside class="sidebar" id="sidebar">
-        <a href="#page1" class="menu-item">Личная жизнь</a>
+        <a href="#page1" class="menu-item">О себе</a>
         <a href="#page2" class="menu-item">Достижения</a>
         <a href="#page3" class="menu-item">Проекты</a>
     </aside>
@@ -681,7 +681,7 @@
     <main class="main-content">
         <section id="page1" class="page-section">
             <div class="container">
-                <h2 class="section-title">Личная жизнь</h2>
+                <h2 class="section-title">О себе</h2>
                 <p class="empty-text">Информация появится здесь скоро...</p>
             </div>
         </section>
