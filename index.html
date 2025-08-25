@@ -51,6 +51,7 @@
             border-radius: 50%;
             top: 10%;
             left: 5%;
+            animation: float 15s ease-in-out infinite;
         }
 
         .bg-triangle {
@@ -62,6 +63,7 @@
             border-bottom: 260px solid var(--white);
             top: 60%;
             right: 5%;
+            animation: float 18s ease-in-out infinite reverse;
         }
 
         .bg-square {
@@ -71,6 +73,123 @@
             border: 2px solid var(--white);
             bottom: 10%;
             left: 15%;
+            animation: rotate 20s linear infinite;
+        }
+
+        /* НОВЫЕ АНИМИРОВАННЫЕ ЭЛЕМЕНТЫ */
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--white);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float-particle 20s infinite linear;
+        }
+
+        .floating-icon {
+            position: fixed;
+            font-size: 1.5rem;
+            color: var(--white);
+            opacity: 0.03;
+            z-index: -1;
+            animation: float-icon 25s infinite linear;
+        }
+
+        .pulse-dot {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.3;
+            z-index: -1;
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        /* АНИМАЦИИ */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(-20px) translateX(15px);
+            }
+            50% {
+                transform: translateY(10px) translateX(-15px);
+            }
+            75% {
+                transform: translateY(-10px) translateX(20px);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0.1;
+            }
+            25% {
+                transform: translateY(-40vh) translateX(20vw) rotate(90deg);
+                opacity: 0.05;
+            }
+            50% {
+                transform: translateY(20vh) translateX(40vw) rotate(180deg);
+                opacity: 0.08;
+            }
+            75% {
+                transform: translateY(-30vh) translateX(-20vw) rotate(270deg);
+                opacity: 0.03;
+            }
+            100% {
+                transform: translateY(0) translateX(0) rotate(360deg);
+                opacity: 0.1;
+            }
+        }
+
+        @keyframes float-icon {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(30vh) translateX(25vw) rotate(90deg);
+            }
+            50% {
+                transform: translateY(60vh) translateX(50vw) rotate(180deg);
+            }
+            75% {
+                transform: translateY(30vh) translateX(75vw) rotate(270deg);
+            }
+            100% {
+                transform: translateY(0) translateX(100vw) rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(2);
+                opacity: 0.1;
+            }
         }
 
         /* Навигация */
@@ -391,6 +510,17 @@
             .social-section {
                 padding: 2rem 0;
             }
+            
+            /* Уменьшаем количество частиц на мобильных */
+            .particle, .floating-icon, .pulse-dot {
+                display: none;
+            }
+            
+            .particle:nth-child(-n+5), 
+            .floating-icon:nth-child(-n+2), 
+            .pulse-dot:nth-child(-n+2) {
+                display: block;
+            }
         }
     </style>
 </head>
@@ -401,6 +531,20 @@
         <div class="bg-triangle"></div>
         <div class="bg-square"></div>
     </div>
+
+    <!-- НОВЫЕ АНИМИРОВАННЫЕ ЭЛЕМЕНТЫ -->
+    <div class="floating-particles" id="particles-container"></div>
+    
+    <!-- Плавающие иконки (можно заменить на любые другие из Font Awesome) -->
+    <i class="fab fa-html5 floating-icon" style="top: 20%; left: 10%; animation-delay: 0s;"></i>
+    <i class="fab fa-css3-alt floating-icon" style="top: 40%; left: 80%; animation-delay: 5s;"></i>
+    <i class="fab fa-js floating-icon" style="top: 70%; left: 15%; animation-delay: 10s;"></i>
+    <i class="fas fa-code floating-icon" style="top: 30%; left: 65%; animation-delay: 15s;"></i>
+    
+    <!-- Пульсирующие точки -->
+    <div class="pulse-dot" style="top: 25%; left: 25%; animation-delay: 0s;"></div>
+    <div class="pulse-dot" style="top: 65%; left: 75%; animation-delay: 1s;"></div>
+    <div class="pulse-dot" style="top: 45%; left: 45%; animation-delay: 2s;"></div>
 
     <!-- Верхняя навигация -->
     <nav class="top-nav">
@@ -488,6 +632,34 @@
             const discordBtn = document.getElementById('discordBtn');
             const copyNotification = document.getElementById('copyNotification');
             const discordNickname = document.getElementById('discordNickname');
+            const particlesContainer = document.getElementById('particles-container');
+
+            // Создание частиц
+            function createParticles() {
+                const particleCount = 15;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    
+                    // Случайные параметры
+                    const size = Math.random() * 8 + 2;
+                    const posX = Math.random() * 100;
+                    const posY = Math.random() * 100;
+                    const animationDelay = Math.random() * 20;
+                    const animationDuration = Math.random() * 10 + 15;
+                    
+                    // Применение стилей
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    particle.style.left = `${posX}%`;
+                    particle.style.top = `${posY}%`;
+                    particle.style.animationDelay = `${animationDelay}s`;
+                    particle.style.animationDuration = `${animationDuration}s`;
+                    
+                    particlesContainer.appendChild(particle);
+                }
+            }
 
             // Бургер-меню
             burgerMenu.addEventListener('click', function() {
@@ -572,6 +744,7 @@
             // Инициализация
             window.addEventListener('scroll', checkScroll);
             checkScroll(); // Проверить при загрузке
+            createParticles(); // Создать частицы
         });
     </script>
 </body>
