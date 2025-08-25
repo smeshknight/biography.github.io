@@ -105,10 +105,9 @@
             color: var(--white);
         }
 
+        /* Убрана линия перед BIO */
         .logo-line {
-            width: 40px;
-            height: 2px;
-            background: var(--white);
+            display: none; /* Убираем линию полностью */
         }
 
         /* Бургер-меню */
@@ -283,6 +282,10 @@
             position: relative;
             overflow: hidden;
             background: transparent;
+            /* Убираем стандартные стили ссылок и кнопок */
+            text-decoration: none;
+            outline: none;
+            cursor: pointer;
         }
 
         .social-btn::before {
@@ -314,6 +317,13 @@
         .social-btn:hover .social-icon {
             color: var(--black);
             transform: rotate(10deg) scale(1.1);
+        }
+
+        /* Убираем синие линии у социальных кнопок */
+        .social-btn:focus,
+        .social-btn:active {
+            outline: none;
+            box-shadow: none;
         }
 
         /* Уведомление о копировании */
