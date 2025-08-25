@@ -49,6 +49,11 @@
             100% { transform: rotateY(360deg) rotateX(360deg); }
         }
 
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
         /* Верхняя навигация */
         .top-nav {
             background: rgba(0, 0, 0, 0.95);
@@ -71,6 +76,12 @@
             align-items: center;
         }
 
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
         .logo h1 {
             font-size: 2.8rem;
             font-weight: 800;
@@ -84,10 +95,18 @@
             transform: translateZ(20px);
         }
 
-        /* Бургер-меню */
+        .pen-icon {
+            width: 24px;
+            height: 24px;
+            opacity: 0.8;
+            filter: brightness(0) invert(1);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Бургер-меню - выровнено по центру Biography */
         .burger-menu {
             position: fixed;
-            top: 2rem;
+            top: 2.1rem;
             right: 2rem;
             z-index: 1001;
             cursor: pointer;
@@ -102,6 +121,7 @@
             justify-content: space-between;
             transition: transform 0.3s ease;
             transform-style: preserve-3d;
+            animation: textGlow 3s ease-in-out infinite;
         }
 
         .burger-icon span {
@@ -117,7 +137,11 @@
             transform: rotateY(10deg) scale(1.1);
         }
 
-        /* Боковое меню - минималистичное */
+        .burger-icon:hover span {
+            background: linear-gradient(90deg, #00b3ff, #0088cc);
+        }
+
+        /* Боковое меню */
         .sidebar {
             position: fixed;
             right: -320px;
@@ -195,7 +219,7 @@
             transform: translateX(0);
         }
 
-        /* Основной контент с 3D эффектами */
+        /* Основной контент */
         .main-content {
             margin-top: 120px;
             padding: 2rem;
@@ -327,10 +351,9 @@
             margin-bottom: 2rem;
             font-weight: 700;
             text-transform: uppercase;
-            background: linear-gradient(45deg, #fff, #aaa, #fff);
+            background: linear-gradient(45deg, #fff, #aaa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: textGlow 4s ease-in-out infinite;
             transform: translateZ(30px);
         }
 
@@ -344,12 +367,28 @@
             transform: translateZ(15px);
         }
 
-        /* Социальные иконки */
+        /* Социальные иконки с надписью */
+        .social-section {
+            text-align: center;
+            margin: 4rem 0 2rem 0;
+            transform-style: preserve-3d;
+        }
+
+        .contact-label {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            display: block;
+            transform: translateZ(10px);
+        }
+
         .social-footer {
             display: flex;
             justify-content: center;
             gap: 2rem;
-            margin: 4rem 0 2rem 0;
             transform-style: preserve-3d;
         }
 
@@ -394,7 +433,8 @@
         /* Адаптивность */
         @media (max-width: 768px) {
             .logo h1 { font-size: 2.2rem; }
-            .burger-menu { top: 1.5rem; right: 1.5rem; }
+            .pen-icon { width: 20px; height: 20px; }
+            .burger-menu { top: 1.8rem; right: 1.5rem; }
             .sidebar { width: 280px; padding: 80px 1.5rem 2rem 1.5rem; }
             .menu-item { font-size: 1.2rem; padding: 1.2rem 1.5rem; }
             .photo-left, .photo-right { grid-template-columns: 1fr; gap: 3rem; }
@@ -402,6 +442,7 @@
             .text-content h2, .full-text h2 { font-size: 2.5rem; }
             .social-footer-btn { width: 65px; height: 65px; }
             .social-footer-icon { width: 30px; height: 30px; }
+            .contact-label { font-size: 0.8rem; }
         }
 
         /* Создание частиц */
@@ -430,6 +471,7 @@
         <div class="nav-container">
             <div class="logo">
                 <h1 class="glowing-text">BIOGRAPHY</h1>
+                <img src="https://cdn-icons-png.flaticon.com/512/2558/2558932.png" alt="Pen" class="pen-icon">
             </div>
         </div>
     </nav>
@@ -495,17 +537,20 @@
                     <p>Фокус на качестве, внимании к деталям и понимании потребностей позволяет достигать результатов, которые превосходят ожидания.</p>
                     <p>Будущее видится как непрерывный процесс обучения, адаптации к новым вызовам и создания решений, которые имеют значение.</p>
                     
-                    <!-- Социальные иконки -->
-                    <div class="social-footer">
-                        <a href="https://t.me/+fe73LRBQUlcxYmQy" class="social-footer-btn" target="_blank">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_2019_Logo.svg" alt="Telegram" class="social-footer-icon">
-                        </a>
-                        <a href="#discord-url" class="social-footer-btn">
-                            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord" class="social-footer-icon">
-                        </a>
-                        <a href="#gmail-url" class="social-footer-btn">
-                            <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Gmail" class="social-footer-icon">
-                        </a>
+                    <!-- Социальные иконки с надписью -->
+                    <div class="social-section">
+                        <span class="contact-label">Contact me</span>
+                        <div class="social-footer">
+                            <a href="https://t.me/+fe73LRBQUlcxYmQy" class="social-footer-btn" target="_blank">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_2019_Logo.svg" alt="Telegram" class="social-footer-icon">
+                            </a>
+                            <a href="#discord-url" class="social-footer-btn">
+                                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord" class="social-footer-icon">
+                            </a>
+                            <a href="#gmail-url" class="social-footer-btn">
+                                <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Gmail" class="social-footer-icon">
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
