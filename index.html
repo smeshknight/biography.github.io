@@ -241,7 +241,7 @@
 
         @keyframes menuItemSlide {
             from {
-                transform: translateX(50px);
+                transform: translateX(30px);
                 opacity: 0;
             }
             to {
@@ -401,24 +401,24 @@
             margin-left: 0;
         }
 
-        /* Боковое меню - УСКОРЕННАя АНИМАЦИЯ */
+        /* Боковое меню - МИНИМАЛИСТИЧНЫЙ ОСТРОВОК */
         .sidebar {
             position: fixed;
             right: -100%;
-            top: 20px;
+            top: 120px; /* ЕЩЕ НИЖЕ - было 100px */
             height: auto;
-            width: 280px;
+            width: 220px;
             background: var(--nav-bg);
             transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
             z-index: 999;
-            padding: 70px 2rem 2rem 2rem;
+            padding: 25px 15px;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 12px;
             backdrop-filter: blur(20px);
-            box-shadow: -10px 0 50px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 204, 0, 0.1);
-            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
         }
 
         .sidebar::before {
@@ -428,8 +428,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255, 204, 0, 0.05) 0%, transparent 50%);
-            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(255, 204, 0, 0.03) 0%, transparent 50%);
+            border-radius: 12px;
             pointer-events: none;
         }
 
@@ -441,17 +441,17 @@
         .menu-item {
             color: var(--white);
             text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: 300;
-            letter-spacing: 2px;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            padding: 1rem 1.5rem;
+            padding: 12px 15px;
             position: relative;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transform: translateX(50px);
+            transition: all 0.3s ease;
+            border-radius: 6px;
+            background: transparent;
+            border: none;
+            transform: translateX(30px);
             opacity: 0;
             animation: menuItemSlide 0.4s ease-out forwards;
             text-align: center;
@@ -462,45 +462,28 @@
         .sidebar.active .menu-item:nth-child(3) { animation-delay: 0.2s; }
 
         .menu-item:hover {
-            transform: translateX(10px) !important;
+            transform: translateX(5px) !important;
             color: var(--accent);
-            background: rgba(255, 204, 0, 0.1);
-            border-color: rgba(255, 204, 0, 0.2);
-            box-shadow: 0 5px 20px rgba(255, 204, 0, 0.2);
+            background: rgba(255, 204, 0, 0.05);
+            box-shadow: 0 2px 10px rgba(255, 204, 0, 0.1);
         }
 
         .menu-item::before {
             content: '';
             position: absolute;
-            left: -15px;
+            left: -8px;
             top: 50%;
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background: var(--accent);
             border-radius: 50%;
             transform: translateY(-50%) scale(0);
             transition: transform 0.2s ease;
-            box-shadow: 0 0 10px var(--accent);
+            box-shadow: 0 0 8px var(--accent);
         }
 
         .menu-item:hover::before {
             transform: translateY(-50%) scale(1);
-        }
-
-        .menu-item::after {
-            content: '';
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 0;
-            height: 1px;
-            background: var(--accent);
-            transition: width 0.2s ease;
-        }
-
-        .menu-item:hover::after {
-            width: 20px;
         }
 
         /* Основной контент */
@@ -586,6 +569,8 @@
             margin-top: auto;
             padding: 4rem 0;
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         .contact-label {
@@ -674,7 +659,7 @@
             bottom: 30px;
         }
 
-        /* Футер - СТИЛИЗОВАННЫЙ КАК НАВИГАЦИОННЫЙ ОСТРОВОК */
+        /* Футер - БЕЗ НАВИГАЦИИ */
         .bottom-footer {
             background: var(--nav-bg);
             padding: 1.5rem 0;
@@ -782,9 +767,9 @@
             }
             
             .sidebar {
-                width: 250px;
-                padding: 60px 1.5rem 1.5rem 1.5rem;
-                top: 10px;
+                width: 200px;
+                padding: 20px 12px;
+                top: 100px; /* ЕЩЕ НИЖЕ НА МОБИЛЬНЫХ - было 80px */
                 right: -100%;
             }
             
@@ -793,8 +778,8 @@
             }
             
             .menu-item {
-                font-size: 1.1rem;
-                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+                padding: 10px 12px;
             }
             
             /* Футер на мобильных */
@@ -868,9 +853,9 @@
             }
             
             .sidebar {
-                width: 220px;
-                padding: 50px 1rem 1rem 1rem;
-                top: 5px;
+                width: 180px;
+                padding: 18px 10px;
+                top: 90px; /* ЕЩЕ НИЖЕ НА МАЛЕНЬКИХ ЭКРАНАХ - было 70px */
             }
             
             .sidebar.active {
@@ -878,8 +863,8 @@
             }
             
             .menu-item {
-                font-size: 1rem;
-                padding: 0.7rem 0.8rem;
+                font-size: 0.85rem;
+                padding: 8px 10px;
             }
             
             .bottom-footer {
@@ -929,7 +914,7 @@
         </div>
     </nav>
 
-    <!-- Боковое меню - ОСТРОВОК С НАВИГАЦИЕЙ -->
+    <!-- Боковое меню - МИНИМАЛИСТИЧНЫЙ ОСТРОВОК -->
     <aside class="sidebar" id="sidebar">
         <a href="#page1" class="menu-item">О себе</a>
         <a href="#page2" class="menu-item">Достижения</a>
