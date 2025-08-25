@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biography</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -11,55 +12,74 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --gray: #888888;
+            --light-gray: #1a1a1a;
+            --accent: #00ff00;
+        }
+
         body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0c0c0c 100%);
-            color: #ffffff;
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
-            perspective: 1000px;
+            line-height: 1.6;
         }
 
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px) rotateX(10deg); }
-            to { opacity: 1; transform: translateY(0) rotateX(0); }
+        /* Геометрический фон */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.05;
         }
 
-        @keyframes textGlow {
-            0%, 100% { 
-                text-shadow: 0 0 20px rgba(255,255,255,0.4),
-                           0 0 40px rgba(255,255,255,0.2),
-                           0 0 60px rgba(255,255,255,0.1);
-            }
-            50% { 
-                text-shadow: 0 0 30px rgba(255,255,255,0.6),
-                           0 0 50px rgba(255,255,255,0.3),
-                           0 0 70px rgba(255,255,255,0.2);
-            }
+        .bg-circle {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border: 2px solid var(--white);
+            border-radius: 50%;
+            top: 10%;
+            left: 5%;
         }
 
-        @keyframes rotate3D {
-            0% { transform: rotateY(0deg) rotateX(0deg); }
-            100% { transform: rotateY(360deg) rotateX(360deg); }
+        .bg-triangle {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-bottom: 260px solid var(--white);
+            top: 60%;
+            right: 5%;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(3deg); }
+        .bg-square {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 2px solid var(--white);
+            bottom: 10%;
+            left: 15%;
         }
 
-        /* Верхняя навигация - убрано верхнее пространство */
+        /* Навигация */
         .top-nav {
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(20px);
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--gray);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            transform-style: preserve-3d;
         }
 
         .nav-container {
@@ -74,150 +94,108 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            position: relative;
+            gap: 1rem;
         }
 
         .logo h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: 3px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            background: linear-gradient(45deg, #fff, #ccc, #fff);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: textGlow 3s ease-in-out infinite;
-            transform: translateZ(20px);
+            color: var(--white);
         }
 
-        .palette-icon {
-            width: 28px;
-            height: 28px;
-            position: absolute;
-            right: -35px;
-            top: 50%;
-            transform: translateY(-50%);
-            filter: brightness(0) invert(1);
-            opacity: 0.9;
+        .logo-line {
+            width: 40px;
+            height: 2px;
+            background: var(--white);
         }
 
-        /* Бургер-меню - поднято выше */
+        /* Бургер-меню */
         .burger-menu {
-            position: fixed;
-            top: 1.6rem;
-            right: 2rem;
-            z-index: 1001;
-            cursor: pointer;
-            transform-style: preserve-3d;
-        }
-
-        .burger-icon {
+            position: relative;
             width: 30px;
             height: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.3s ease;
-            transform-style: preserve-3d;
-            animation: textGlow 3s ease-in-out infinite;
+            cursor: pointer;
+            z-index: 1001;
         }
 
-        .burger-icon span {
+        .burger-line {
+            position: absolute;
             width: 100%;
             height: 2px;
-            background: linear-gradient(90deg, #fff, #ccc);
-            border-radius: 2px;
+            background: var(--white);
             transition: all 0.3s ease;
-            transform: translateZ(0);
         }
 
-        .burger-icon:hover {
-            transform: rotateY(10deg) scale(1.1);
+        .burger-line:nth-child(1) {
+            top: 0;
         }
 
-        /* Боковое меню с разделителями */
+        .burger-line:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .burger-line:nth-child(3) {
+            bottom: 0;
+        }
+
+        .burger-menu.active .burger-line:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .burger-menu.active .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger-menu.active .burger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Боковое меню */
         .sidebar {
             position: fixed;
-            right: -320px;
+            right: -300px;
             top: 0;
             height: 100vh;
-            width: 320px;
-            background: rgba(10, 10, 10, 0.98);
-            backdrop-filter: blur(30px);
-            border-left: 1px solid rgba(255,255,255,0.1);
-            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 300px;
+            background: var(--black);
+            border-left: 1px solid var(--gray);
+            transition: right 0.4s ease;
             z-index: 999;
-            padding: 80px 2rem 2rem 2rem;
-            overflow-y: auto;
-            transform-style: preserve-3d;
+            padding: 100px 2rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
         .sidebar.active {
             right: 0;
         }
 
-        .sidebar-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-
         .menu-item {
-            color: #fff;
+            color: var(--white);
             text-decoration: none;
-            padding: 1.6rem 2rem;
-            transition: all 0.4s ease;
+            font-size: 1.2rem;
             font-weight: 300;
-            font-size: 1.3rem;
             letter-spacing: 2px;
             text-transform: uppercase;
+            padding: 0.8rem 0;
             position: relative;
-            overflow: hidden;
-            border: none;
-            background: transparent;
-            text-align: left;
-            transform-style: preserve-3d;
-        }
-
-        .menu-item::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 2rem;
-            right: 2rem;
-            height: 1px;
-            background: rgba(255,255,255,0.1);
-        }
-
-        .menu-item:last-child::before {
-            display: none;
-        }
-
-        .menu-item::after {
-            content: '→';
-            position: absolute;
-            right: 2rem;
-            opacity: 0;
             transition: all 0.3s ease;
-            transform: translateX(-10px);
+            border-bottom: 1px solid var(--light-gray);
         }
 
         .menu-item:hover {
-            color: #00b3ff;
-            transform: translateX(-15px) translateZ(10px);
+            padding-left: 1rem;
+            color: var(--accent);
         }
 
-        .menu-item:hover::after {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* Основной контент - уменьшен отступ */
+        /* Основной контент */
         .main-content {
-            margin-top: 80px;
+            margin-top: 100px;
             padding: 2rem;
-            transform-style: preserve-3d;
         }
 
         .page-section {
@@ -225,240 +203,206 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 5rem 2rem;
+            padding: 4rem 2rem;
             opacity: 0;
-            transform: translateY(100px) rotateX(15deg);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            transform-style: preserve-3d;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
         }
 
         .page-section.active {
             opacity: 1;
-            transform: translateY(0) rotateX(0);
-            animation: fadeIn 1.2s ease-out;
+            transform: translateY(0);
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-            transform-style: preserve-3d;
-        }
-
-        /* Фоновые геометрические фигуры */
-        .bg-shape {
-            position: fixed;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.15;
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-
-        .shape-circle {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            top: 15%;
-            left: 15%;
-            animation: rotate3D 25s linear infinite;
-        }
-
-        .shape-square {
-            width: 200px;
-            height: 200px;
-            top: 65%;
-            left: 75%;
-            animation: rotate3D 20s linear infinite reverse;
-        }
-
-        .shape-triangle {
-            width: 0;
-            height: 0;
-            border-left: 150px solid transparent;
-            border-right: 150px solid transparent;
-            border-bottom: 260px solid rgba(255,255,255,0.1);
-            background: transparent;
-            top: 25%;
-            left: 80%;
-            animation: float 8s ease-in-out infinite;
-        }
-
-        .shape-circle-2 {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            top: 70%;
-            left: 10%;
-            animation: rotate3D 18s linear infinite;
-        }
-
-        .shape-square-2 {
-            width: 120px;
-            height: 120px;
-            top: 20%;
-            left: 80%;
-            animation: rotate3D 22s linear infinite reverse;
-        }
-
-        .shape-triangle-2 {
-            width: 0;
-            height: 0;
-            border-left: 100px solid transparent;
-            border-right: 100px solid transparent;
-            border-bottom: 173px solid rgba(255,255,255,0.08);
-            background: transparent;
-            top: 60%;
-            left: 25%;
-            animation: float 10s ease-in-out infinite reverse;
-        }
-
-        /* Стили для текстового контента */
-        .text-content, .full-text {
-            text-align: center;
-            transform-style: preserve-3d;
             max-width: 800px;
             margin: 0 auto;
+            text-align: center;
         }
 
-        .text-content h2, .full-text h2 {
-            font-size: 3rem;
+        .section-title {
+            font-size: 2.5rem;
             margin-bottom: 2rem;
             font-weight: 700;
             text-transform: uppercase;
-            background: linear-gradient(45deg, #fff, #aaa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            transform: translateZ(30px);
+            letter-spacing: 4px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--white);
         }
 
         .empty-text {
-            font-size: 1.4rem;
-            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.2rem;
+            color: var(--gray);
             font-weight: 300;
-            font-style: italic;
             letter-spacing: 1px;
-            transform: translateZ(15px);
+            margin-bottom: 3rem;
         }
 
-        /* Социальные иконки с надписью */
+        /* Социальные иконки */
         .social-section {
-            text-align: center;
-            margin: 4rem 0 3rem 0;
-            transform-style: preserve-3d;
+            margin-top: 3rem;
         }
 
         .contact-label {
             font-size: 0.9rem;
             font-weight: 300;
-            color: rgba(255,255,255,0.4);
+            color: var(--gray);
             letter-spacing: 3px;
             text-transform: uppercase;
             margin-bottom: 2rem;
             display: block;
-            transform: translateZ(10px);
         }
 
         .social-footer {
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            transform-style: preserve-3d;
+            gap: 1.5rem;
         }
 
-        .social-footer-btn {
-            width: 65px;
-            height: 65px;
-            border: 2px solid rgba(255,255,255,0.2);
+        .social-btn {
+            width: 60px;
+            height: 60px;
+            border: 1px solid var(--white);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.4s ease;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            transform: translateZ(25px);
+            position: relative;
+            overflow: hidden;
+            background: transparent;
         }
 
-        .social-footer-btn:hover {
-            transform: translateZ(40px) scale(1.15) rotateY(10deg);
-            border-color: rgba(255,255,255,0.4);
-            background: rgba(255,255,255,0.1);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        .social-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            transition: all 0.4s ease;
+            z-index: -1;
         }
 
-        .social-footer-icon {
-            width: 28px;
-            height: 28px;
-            object-fit: contain;
-            transition: transform 0.3s ease;
+        .social-btn:hover::before {
+            left: 0;
+        }
+
+        .social-btn:hover {
+            color: var(--black);
+        }
+
+        .social-icon {
+            font-size: 1.5rem;
+            color: var(--white);
+            transition: all 0.4s ease;
+        }
+
+        .social-btn:hover .social-icon {
+            color: var(--black);
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        /* Уведомление о копировании */
+        .copy-notification {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--white);
+            color: var(--black);
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: bottom 0.5s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .copy-notification.active {
+            bottom: 30px;
         }
 
         /* Футер */
         .bottom-footer {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 2.5rem 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            background: var(--black);
+            padding: 2rem 0;
+            border-top: 1px solid var(--gray);
             text-align: center;
-            backdrop-filter: blur(20px);
-            transform-style: preserve-3d;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            color: var(--gray);
+            letter-spacing: 2px;
         }
 
         /* Адаптивность */
         @media (max-width: 768px) {
-            .logo h1 { font-size: 2rem; }
-            .palette-icon { width: 22px; height: 22px; right: -28px; }
-            .burger-menu { top: 1.4rem; right: 1.5rem; }
-            .sidebar { width: 280px; padding: 70px 1.5rem 2rem 1.5rem; }
-            .menu-item { font-size: 1.1rem; padding: 1.3rem 1.5rem; }
-            .text-content h2, .full-text h2 { font-size: 2.3rem; }
-            .empty-text { font-size: 1.1rem; }
-            .social-footer-btn { width: 55px; height: 55px; }
-            .social-footer-icon { width: 23px; height: 23px; }
-            .main-content { margin-top: 70px; padding: 1.5rem; }
+            .logo h1 {
+                font-size: 1.5rem;
+            }
             
-            .bg-shape {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .social-btn {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .social-icon {
+                font-size: 1.2rem;
+            }
+            
+            .bg-circle, .bg-triangle, .bg-square {
                 transform: scale(0.7);
             }
         }
     </style>
 </head>
 <body>
-    <!-- Фоновые геометрические фигуры -->
-    <div class="bg-shape shape-circle"></div>
-    <div class="bg-shape shape-square"></div>
-    <div class="bg-shape shape-triangle"></div>
-    <div class="bg-shape shape-circle-2"></div>
-    <div class="bg-shape shape-square-2"></div>
-    <div class="bg-shape shape-triangle-2"></div>
+    <!-- Геометрический фон -->
+    <div class="bg-pattern">
+        <div class="bg-circle"></div>
+        <div class="bg-triangle"></div>
+        <div class="bg-square"></div>
+    </div>
 
     <!-- Верхняя навигация -->
     <nav class="top-nav">
         <div class="nav-container">
             <div class="logo">
-                <h1 class="glowing-text">BIOGRAPHY</h1>
-                <img src="https://cdn-icons-png.flaticon.com/512/1048/1048971.png" alt="Palette" class="palette-icon">
+                <div class="logo-line"></div>
+                <h1>BIO</h1>
+            </div>
+            <div class="burger-menu" id="burgerMenu">
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
             </div>
         </div>
     </nav>
 
-    <!-- Бургер-меню -->
-    <div class="burger-menu" id="burgerMenu">
-        <div class="burger-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-
     <!-- Боковое меню -->
     <aside class="sidebar" id="sidebar">
-        <nav class="sidebar-nav">
-            <a href="#page1" class="menu-item">Личная жизнь</a>
-            <a href="#page2" class="menu-item">Достижения</a>
-            <a href="#page3" class="menu-item">Проекты</a>
-        </nav>
+        <a href="#page1" class="menu-item">Личная жизнь</a>
+        <a href="#page2" class="menu-item">Достижения</a>
+        <a href="#page3" class="menu-item">Проекты</a>
     </aside>
 
     <!-- Основной контент -->
@@ -466,44 +410,38 @@
         <!-- Страница 1 -->
         <section id="page1" class="page-section">
             <div class="container">
-                <div class="text-content">
-                    <h2>Личная жизнь</h2>
-                    <div class="empty-text">Тут пока что пусто…</div>
-                </div>
+                <h2 class="section-title">Личная жизнь</h2>
+                <p class="empty-text">Информация появится здесь скоро...</p>
             </div>
         </section>
 
         <!-- Страница 2 -->
         <section id="page2" class="page-section">
             <div class="container">
-                <div class="text-content">
-                    <h2>Достижения</h2>
-                    <div class="empty-text">Тут пока что пусто…</div>
-                </div>
+                <h2 class="section-title">Достижения</h2>
+                <p class="empty-text">Информация появится здесь скоро...</p>
             </div>
         </section>
 
         <!-- Страница 3 -->
         <section id="page3" class="page-section">
             <div class="container">
-                <div class="full-text">
-                    <h2>Проекты</h2>
-                    <div class="empty-text">Тут пока что пусто…</div>
-                    
-                    <!-- Социальные иконки с надписью -->
-                    <div class="social-section">
-                        <span class="contact-label">Contact me</span>
-                        <div class="social-footer">
-                            <a href="https://t.me/+fe73LRBQUlcxYmQy" class="social-footer-btn" target="_blank">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_2019_Logo.svg" alt="Telegram" class="social-footer-icon">
-                            </a>
-                            <a href="#discord-url" class="social-footer-btn">
-                                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord" class="social-footer-icon">
-                            </a>
-                            <a href="#gmail-url" class="social-footer-btn">
-                                <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Gmail" class="social-footer-icon">
-                            </a>
-                        </div>
+                <h2 class="section-title">Проекты</h2>
+                <p class="empty-text">Информация появится здесь скоро...</p>
+                
+                <!-- Социальные иконки -->
+                <div class="social-section">
+                    <span class="contact-label">Свяжитесь со мной</span>
+                    <div class="social-footer">
+                        <a href="https://t.me/+fe73LRBQUlcxYmQy" class="social-btn" target="_blank">
+                            <i class="fab fa-telegram social-icon"></i>
+                        </a>
+                        <button class="social-btn" id="discordBtn">
+                            <i class="fab fa-discord social-icon"></i>
+                        </button>
+                        <a href="mailto:example@example.com" class="social-btn">
+                            <i class="far fa-envelope social-icon"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -512,33 +450,38 @@
 
     <!-- Футер -->
     <footer class="bottom-footer">
-        <div class="footer-container">
-            <p>Created with passion • 2024</p>
+        <div class="container">
+            <p class="footer-text">Created with passion • 2024</p>
         </div>
     </footer>
+
+    <!-- Уведомление о копировании -->
+    <div class="copy-notification" id="copyNotification">Copied / Скопировано</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const burgerMenu = document.getElementById('burgerMenu');
             const sidebar = document.getElementById('sidebar');
-            const sidebarLinks = document.querySelectorAll('.menu-item');
             const pageSections = document.querySelectorAll('.page-section');
+            const discordBtn = document.getElementById('discordBtn');
+            const copyNotification = document.getElementById('copyNotification');
 
             // Бургер-меню
-            burgerMenu.addEventListener('click', function(e) {
-                e.stopPropagation();
+            burgerMenu.addEventListener('click', function() {
+                this.classList.toggle('active');
                 sidebar.classList.toggle('active');
             });
 
             // Закрытие меню при клике на ссылку
-            sidebarLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('click', function(e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href').substring(1);
                     const targetSection = document.getElementById(targetId);
                     
                     if (targetSection) {
                         sidebar.classList.remove('active');
+                        burgerMenu.classList.remove('active');
                         targetSection.scrollIntoView({
                             behavior: 'smooth',
                             block: 'start'
@@ -559,31 +502,32 @@
                 });
             }
 
+            // Копирование Discord ника
+            discordBtn.addEventListener('click', function() {
+                navigator.clipboard.writeText('fame24').then(() => {
+                    // Показываем уведомление
+                    copyNotification.classList.add('active');
+                    
+                    // Скрываем уведомление через 3 секунды
+                    setTimeout(() => {
+                        copyNotification.classList.remove('active');
+                    }, 3000);
+                }).catch(err => {
+                    console.error('Ошибка при копировании: ', err);
+                });
+            });
+
             // Закрытие меню при клике вне его
             document.addEventListener('click', function(e) {
                 if (!sidebar.contains(e.target) && !burgerMenu.contains(e.target)) {
                     sidebar.classList.remove('active');
+                    burgerMenu.classList.remove('active');
                 }
             });
 
-            // Плавная загрузка
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-                checkScroll();
-            }, 100);
-
+            // Инициализация
             window.addEventListener('scroll', checkScroll);
-
-            // Параллакс эффект для фоновых фигур
-            document.addEventListener('mousemove', function(e) {
-                const moveX = (e.clientX - window.innerWidth / 2) / 50;
-                const moveY = (e.clientY - window.innerHeight / 2) / 50;
-                
-                document.querySelectorAll('.bg-shape').forEach((shape, index) => {
-                    const delay = index * 0.5;
-                    shape.style.transform = `translate(${moveX * (index + 1)}px, ${moveY * (index + 1)}px) rotate3D(${moveY/10}, ${moveX/10}, 0, 45deg)`;
-                });
-            });
+            checkScroll(); // Проверить при загрузке
         });
     </script>
 </body>
