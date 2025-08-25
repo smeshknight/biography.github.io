@@ -311,15 +311,20 @@
         .burger-line:nth-child(2) {
             top: 50%;
             transform: translateY(-50%);
+            width: 80%;
+            margin-left: auto;
         }
 
         .burger-line:nth-child(3) {
             bottom: 0;
+            width: 60%;
+            margin-left: auto;
         }
 
         .burger-menu.active .burger-line:nth-child(1) {
             transform: rotate(45deg) translate(6px, 6px);
             background: var(--accent);
+            width: 100%;
         }
 
         .burger-menu.active .burger-line:nth-child(2) {
@@ -329,6 +334,8 @@
         .burger-menu.active .burger-line:nth-child(3) {
             transform: rotate(-45deg) translate(6px, -6px);
             background: var(--accent);
+            width: 100%;
+            margin-left: 0;
         }
 
         /* Боковое меню */
@@ -391,20 +398,27 @@
 
         /* Основной контент */
         .main-content {
-            margin-top: 120px;
-            padding: 2rem;
+            margin-top: 80px; /* Уменьшили отступ сверху */
+            padding: 1rem 2rem; /* Уменьшили паддинг */
             flex: 1;
         }
 
         .page-section {
-            min-height: 100vh;
+            min-height: 80vh; /* Уменьшили минимальную высоту */
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 4rem 2rem;
+            padding: 2rem 1rem; /* Уменьшили паддинг секций */
             opacity: 0;
             transform: translateY(50px);
             transition: all 0.8s ease;
+        }
+
+        /* Первая секция - О себе - поднимаем выше */
+        #page1 {
+            min-height: 60vh; /* Еще меньше для первой секции */
+            padding-top: 0; /* Убираем верхний паддинг */
+            margin-top: 0; /* Убираем отступ сверху */
         }
 
         .page-section.active {
@@ -453,7 +467,7 @@
         /* Социальные иконки */
         .social-section {
             margin-top: auto;
-            padding: 4rem 0;
+            padding: 3rem 0; /* Уменьшили паддинг */
             text-align: center;
         }
 
@@ -463,7 +477,7 @@
             color: var(--gray);
             letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem; /* Уменьшили отступ */
             display: block;
         }
 
@@ -546,7 +560,7 @@
         /* Футер */
         .bottom-footer {
             background: var(--black);
-            padding: 2.5rem 0;
+            padding: 2rem 0; /* Уменьшили паддинг */
             border-top: 1px solid var(--gray);
             text-align: center;
         }
@@ -588,11 +602,25 @@
             }
             
             .social-section {
-                padding: 3rem 0;
+                padding: 2rem 0;
             }
             
             .social-footer {
                 gap: 1.5rem;
+            }
+            
+            .main-content {
+                margin-top: 70px;
+                padding: 1rem;
+            }
+            
+            .page-section {
+                min-height: 70vh;
+                padding: 1.5rem 1rem;
+            }
+            
+            #page1 {
+                min-height: 50vh;
             }
             
             /* Уменьшаем количество частиц на мобильных */
@@ -628,8 +656,17 @@
             }
             
             .main-content {
-                margin-top: 100px;
-                padding: 1rem;
+                margin-top: 60px;
+                padding: 0.5rem;
+            }
+            
+            .page-section {
+                min-height: 60vh;
+                padding: 1rem 0.5rem;
+            }
+            
+            #page1 {
+                min-height: 40vh;
             }
         }
     </style>
