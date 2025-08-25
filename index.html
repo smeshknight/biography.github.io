@@ -203,9 +203,22 @@
             transform: translateX(-10px);
         }
 
-        .menu-item:hover {
+        /* Первая кнопка - оригинальная анимация (влево) */
+        .menu-item:nth-child(1):hover {
             color: #00b3ff;
             transform: translateX(-15px) translateZ(10px);
+        }
+
+        /* Вторая кнопка - только увеличение (без наклона) */
+        .menu-item:nth-child(2):hover {
+            color: #00b3ff;
+            transform: scale(1.05) translateZ(10px);
+        }
+
+        /* Третья кнопка - зеркальная анимация (вправо) */
+        .menu-item:nth-child(3):hover {
+            color: #00b3ff;
+            transform: translateX(15px) translateZ(10px);
         }
 
         .menu-item:hover::after {
@@ -420,6 +433,17 @@
             
             .bg-shape {
                 transform: scale(0.7);
+            }
+
+            /* Адаптация анимаций для мобильных */
+            .menu-item:nth-child(1):hover {
+                transform: translateX(-10px) translateZ(10px);
+            }
+            .menu-item:nth-child(2):hover {
+                transform: scale(1.03) translateZ(10px);
+            }
+            .menu-item:nth-child(3):hover {
+                transform: translateX(10px) translateZ(10px);
             }
         }
     </style>
