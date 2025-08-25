@@ -5,151 +5,598 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biography</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #000; color: #fff; font-family: Arial; min-height: 100vh; overflow-x: hidden; }
-        
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00b3ff, 0 0 20px #00b3ff; }
-            50% { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #00b3ff, 0 0 40px #00b3ff; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .glowing-text { animation: glow 2s ease-in-out infinite; font-weight: bold; }
 
-        .top-nav { background: #000; padding: 1.2rem 0; border-bottom: 2px solid #333; position: fixed; top: 0; width: 100%; z-index: 1000; }
-        .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .logo h1 { font-size: 2.5rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin: -2px 0 0 -3px; }
-        
-        .social-icons { display: flex; gap: 1rem; margin-right: -30px; }
-        .social-btn { width: 40px; height: 40px; border: 2px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; background: transparent; }
-        .social-btn:hover { transform: scale(1.1); box-shadow: 0 0 15px rgba(255,255,255,0.4); background: rgba(255,255,255,0.1); }
-        .icon { width: 24px; height: 24px; object-fit: contain; }
-        
-        .telegram-btn { width: 40px; height: 40px; border: 2px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; background: white; }
-        .telegram-btn:hover { transform: scale(1.1); box-shadow: 0 0 15px rgba(255,255,255,0.4); }
-        .telegram-icon { width: 22px; height: 22px; object-fit: contain; filter: brightness(0) contrast(100%); }
+        body {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: #ffffff;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-        .sidebar { position: fixed; right: -250px; top: 0; height: 100vh; width: 250px; background: rgba(0,0,0,0.95); border-left: 1px solid #333; transition: right 0.3s ease; z-index: 999; padding: 80px 1rem 2rem 1rem; }
-        .sidebar:hover { right: 0; }
-        .sidebar-trigger { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); width: 30px; height: 100px; background: rgba(0,0,0,0.7); border-radius: 10px 0 0 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 998; transition: right 0.3s ease; }
-        .sidebar-trigger::before { content: '☰'; color: white; font-size: 18px; font-weight: bold; }
-        .sidebar:hover ~ .sidebar-trigger { right: 250px; }
-        .sidebar-nav { display: flex; flex-direction: column; gap: 1rem; }
-        .sidebar-btn { color: #fff; text-decoration: none; padding: 1rem; border: 1px solid #fff; border-radius: 8px; transition: all 0.3s ease; text-align: center; font-weight: bold; text-transform: uppercase; }
-        .sidebar-btn:hover { background: #fff; color: #000; transform: translateX(-5px); }
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        .main-content { margin-top: 80px; padding: 2rem; }
-        .page-section { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 4rem 2rem; opacity: 0; transform: translateY(50px); transition: all 0.8s ease; }
-        .page-section.active { opacity: 1; transform: translateY(0); }
-        .container { max-width: 1200px; margin: 0 auto; }
+        @keyframes slideInRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
 
-        .photo-left, .photo-right { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-        .photo-left .photo, .photo-right .photo { order: 1; }
-        .photo-right .photo { order: 2; }
-        .photo-left .text-content, .photo-right .text-content { order: 2; }
-        .photo-right .text-content { order: 1; }
-        .photo img { width: 100%; height: 400px; object-fit: cover; border-radius: 10px; border: 2px solid #fff; }
-        
-        .text-content, .full-text { text-align: center; }
-        .text-content h2, .full-text h2 { font-size: 2.5rem; margin-bottom: 2rem; font-weight: bold; text-transform: uppercase; }
-        .text-content p, .full-text p { font-size: 1.1rem; line-height: 1.8; opacity: 0.9; font-weight: bold; margin-bottom: 1.5rem; }
-        .full-text { max-width: 800px; margin: 0 auto; }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
 
-        .bottom-footer { background: #000; padding: 2rem 0; border-top: 1px solid #333; text-align: center; }
-        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-        .footer-container p { font-size: 1.1rem; opacity: 0.7; font-weight: bold; }
+        @keyframes textGlow {
+            0%, 100% { 
+                text-shadow: 0 0 10px rgba(255,255,255,0.3),
+                           0 0 20px rgba(255,255,255,0.2),
+                           0 0 30px rgba(255,255,255,0.1);
+            }
+            50% { 
+                text-shadow: 0 0 15px rgba(255,255,255,0.4),
+                           0 0 25px rgba(255,255,255,0.3),
+                           0 0 35px rgba(255,255,255,0.2);
+            }
+        }
 
+        /* Верхняя навигация */
+        .top-nav {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #fff, #ccc, #fff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 3s ease-in-out infinite, pulse 4s ease-in-out infinite;
+        }
+
+        /* Бургер-меню справа */
+        .burger-menu {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1001;
+            cursor: pointer;
+        }
+
+        .burger-icon {
+            width: 30px;
+            height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease;
+        }
+
+        .burger-icon span {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #fff, #ccc);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .burger-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .burger-icon:hover span {
+            background: linear-gradient(90deg, #00b3ff, #0088cc);
+        }
+
+        /* Боковое меню */
+        .sidebar {
+            position: fixed;
+            right: -300px;
+            top: 0;
+            height: 100vh;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(30px);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+            padding: 100px 2rem 2rem 2rem;
+            overflow-y: auto;
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sidebar-btn {
+            color: #fff;
+            text-decoration: none;
+            padding: 1.2rem 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(255,255,255,0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .sidebar-btn:hover {
+            background: rgba(255,255,255,0.05);
+            transform: translateX(-10px) scale(1.02);
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .sidebar-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Основной контент */
+        .main-content {
+            margin-top: 120px;
+            padding: 2rem;
+        }
+
+        .page-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+            position: relative;
+        }
+
+        .page-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .page-section.active {
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Стили для разных страниц */
+        .photo-left, .photo-right {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .photo-left .photo {
+            order: 1;
+        }
+
+        .photo-right .photo {
+            order: 2;
+        }
+
+        .photo-left .text-content, .photo-right .text-content {
+            order: 2;
+        }
+
+        .photo-right .text-content {
+            order: 1;
+        }
+
+        .photo img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .photo img:hover {
+            transform: scale(1.02);
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+        }
+
+        .text-content {
+            text-align: center;
+        }
+
+        .text-content h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #fff, #ccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 3s ease-in-out infinite;
+        }
+
+        .text-content p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            color: #e0e0e0;
+        }
+
+        .full-text {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .full-text h2 {
+            font-size: 3.5rem;
+            margin-bottom: 3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #fff, #aaa, #fff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 3s ease-in-out infinite, pulse 5s ease-in-out infinite;
+        }
+
+        .full-text p {
+            font-size: 1.4rem;
+            line-height: 1.9;
+            opacity: 0.95;
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+            color: #f0f0f0;
+        }
+
+        /* Социальные иконки в футере */
+        .social-footer {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 4rem 0 2rem 0;
+            animation: slideInRight 1s ease-out;
+        }
+
+        .social-footer-btn {
+            width: 70px;
+            height: 70px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .social-footer-btn:hover {
+            transform: scale(1.15) translateY(-5px);
+            border-color: rgba(255,255,255,0.4);
+            background: rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .social-footer-icon {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .social-footer-btn:hover .social-footer-icon {
+            transform: scale(1.1);
+        }
+
+        /* Футер */
+        .bottom-footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            backdrop-filter: blur(20px);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-container p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            font-weight: 400;
+            color: #ccc;
+            letter-spacing: 1px;
+        }
+
+        /* Декоративные элементы */
+        .decoration {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .decoration-circle {
+            width: 300px;
+            height: 300px;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 50%;
+            position: fixed;
+            top: 50%;
+            left: 10%;
+            transform: translate(-50%, -50%);
+        }
+
+        .decoration-line {
+            width: 2px;
+            height: 100vh;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.03), transparent);
+            position: fixed;
+            top: 0;
+            right: 20%;
+        }
+
+        /* Адаптивность */
         @media (max-width: 768px) {
-            .nav-container { flex-direction: column; gap: 1rem; }
-            .photo-left, .photo-right { grid-template-columns: 1fr; gap: 2rem; }
-            .logo h1 { font-size: 2rem; }
-            .sidebar { width: 200px; right: -200px; }
-            .sidebar:hover ~ .sidebar-trigger { right: 200px; }
-            .text-content h2, .full-text h2 { font-size: 2rem; }
-            .social-icons { margin-right: 0; }
+            .nav-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .logo h1 {
+                font-size: 2.2rem;
+            }
+            
+            .burger-menu {
+                top: 1.5rem;
+                right: 1.5rem;
+            }
+            
+            .sidebar {
+                width: 280px;
+                padding: 80px 1.5rem 2rem 1.5rem;
+            }
+            
+            .photo-left, .photo-right {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .photo img {
+                height: 400px;
+            }
+            
+            .text-content h2, .full-text h2 {
+                font-size: 2.2rem;
+            }
+            
+            .text-content p, .full-text p {
+                font-size: 1.1rem;
+            }
+            
+            .social-footer {
+                gap: 1.5rem;
+            }
+            
+            .social-footer-btn {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .social-footer-icon {
+                width: 28px;
+                height: 28px;
+            }
+            
+            .decoration-circle, .decoration-line {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Декоративные элементы -->
+    <div class="decoration-circle"></div>
+    <div class="decoration-line"></div>
+
+    <!-- Верхняя навигация -->
     <nav class="top-nav">
         <div class="nav-container">
-            <div class="logo"><h1 class="glowing-text">BIOGRAPHY</h1></div>
-            <div class="social-icons">
-                <a href="https://t.me/+fe73LRBQUlcxYmQy" class="telegram-btn" target="_blank">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_2019_Logo.svg" alt="Telegram" class="telegram-icon">
-                </a>
-                <a href="#discord-url" class="social-btn"><img src="images/discord.png" alt="Discord" class="icon"></a>
-                <a href="#gmail-url" class="social-btn"><img src="images/gmail.png" alt="Gmail" class="icon"></a>
+            <div class="logo">
+                <h1 class="glowing-text">BIOGRAPHY</h1>
             </div>
         </div>
     </nav>
 
-    <aside class="sidebar">
+    <!-- Бургер-меню -->
+    <div class="burger-menu" id="burgerMenu">
+        <div class="burger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- Боковое меню -->
+    <aside class="sidebar" id="sidebar">
         <nav class="sidebar-nav">
             <a href="#page1" class="sidebar-btn">Раздел 1</a>
             <a href="#page2" class="sidebar-btn">Раздел 2</a>
             <a href="#page3" class="sidebar-btn">Раздел 3</a>
         </nav>
     </aside>
-    <div class="sidebar-trigger"></div>
 
+    <!-- Основной контент -->
     <main class="main-content">
+        <!-- Страница 1: Фото слева, текст по центру -->
         <section id="page1" class="page-section">
             <div class="container">
                 <div class="photo-left">
-                    <div class="photo"><img src="images/photo1.jpg" alt="Фото 1"></div>
+                    <div class="photo">
+                        <img src="images/photo1.jpg" alt="Фото 1">
+                    </div>
                     <div class="text-content">
-                        <h2>Заголовок раздела 1</h2>
-                        <p>Текст будет здесь...</p>
+                        <h2>Начало пути</h2>
+                        <p>Здесь будет рассказ о первых шагах, достижениях и важных моментах, которые сформировали основу для дальнейшего развития и роста.</p>
+                        <p>Каждый опыт, каждая встреча и каждое решение внесли свой вклад в становление личности и профессиональное развитие.</p>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Страница 2: Фото справа, текст по центру -->
         <section id="page2" class="page-section">
             <div class="container">
                 <div class="photo-right">
-                    <div class="photo"><img src="images/photo2.jpg" alt="Фото 2"></div>
+                    <div class="photo">
+                        <img src="images/photo2.jpg" alt="Фото 2">
+                    </div>
                     <div class="text-content">
-                        <h2>Заголовок раздела 2</h2>
-                        <p>Текст будет здесь...</p>
+                        <h2>Достижения</h2>
+                        <p>Значимые проекты, успешные реализации и моменты гордости. Этапы, которые демонстрируют рост и развитие в профессиональной сфере.</p>
+                        <p>Каждое достижение - это не только результат упорного труда, но и ценный опыт, который открывает новые горизонты.</p>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Страница 3: Сплошной текст -->
         <section id="page3" class="page-section">
             <div class="container">
                 <div class="full-text">
-                    <h2>Заголовок раздела 3</h2>
-                    <p>Текст будет здесь...</p>
-                    <p>Дополнительный текст...</p>
-                    <p>Еще больше текста...</p>
+                    <h2>Философия и цели</h2>
+                    <p>В основе подхода лежит стремление к постоянному развитию, инновациям и созданию ценности. Каждый проект - это возможность сделать что-то выдающееся.</p>
+                    <p>Фокус на качестве, внимании к деталям и понимании потребностей позволяет достигать результатов, которые превосходят ожидания.</p>
+                    <p>Будущее видится как непрерывный процесс обучения, адаптации к новым вызовам и создания решений, которые имеют значение.</p>
+                    
+                    <!-- Социальные иконки в футере -->
+                    <div class="social-footer">
+                        <a href="https://t.me/+fe73LRBQUlcxYmQy" class="social-footer-btn" target="_blank">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Telegram_2019_Logo.svg" alt="Telegram" class="social-footer-icon">
+                        </a>
+                        <a href="#discord-url" class="social-footer-btn">
+                            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord" class="social-footer-icon">
+                        </a>
+                        <a href="#gmail-url" class="social-footer-btn">
+                            <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Gmail" class="social-footer-icon">
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Футер -->
     <footer class="bottom-footer">
         <div class="footer-container">
-            <p>Powered by RoDonations</p>
+            <p>Created with passion • 2024</p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const burgerMenu = document.getElementById('burgerMenu');
+            const sidebar = document.getElementById('sidebar');
             const sidebarLinks = document.querySelectorAll('.sidebar-btn');
             const pageSections = document.querySelectorAll('.page-section');
-            
+
+            // Бургер-меню
+            burgerMenu.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+            });
+
+            // Закрытие меню при клике на ссылку
             sidebarLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href').substring(1);
                     const targetSection = document.getElementById(targetId);
+                    
                     if (targetSection) {
-                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        sidebar.classList.remove('active');
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     }
                 });
             });
-            
+
+            // Анимация появления секций
             function checkScroll() {
                 pageSections.forEach(section => {
                     const sectionTop = section.getBoundingClientRect().top;
@@ -158,8 +605,21 @@
                     }
                 });
             }
+
+            // Закрытие меню при клике вне его
+            document.addEventListener('click', function(e) {
+                if (!sidebar.contains(e.target) && !burgerMenu.contains(e.target)) {
+                    sidebar.classList.remove('active');
+                }
+            });
+
             checkScroll();
             window.addEventListener('scroll', checkScroll);
+
+            // Плавная загрузка
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
         });
     </script>
 </body>
