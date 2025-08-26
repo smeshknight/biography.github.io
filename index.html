@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biography</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwMDAwMDAiLz4KPHJlY3QgeD0iMTIiIHk9IjEyIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHJ4PSI4IiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkNDMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWRhc2hhcnJheT0iNCA0Ii8+CjxjaXJjbGUgY3g9IjMyIiBjeT0iMzIiIHI9IjE1IiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkNDMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWRhc2hhcnJheT0iMiAzIi8+CjxwYXRoIGQ9Ik0yNCAyNCBMNDAgNDAiIHN0cm9rZT0iI0ZGQ0MwMCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPHBhdGggZD0iTTQwIDI0IEwyNCA0MCIgc3Ryb2tlPSIjRkZDQzAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSI1IiBmaWxsPSIjRkZDQzAwIiBvcGFjaXR5PSIwLjciPgo8L2NpcmNsZT4KPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0ib3BhY2l0eSIgdmFsdWVzPSIwLjM7MC43OzAuMyIgZHVyPSIycyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiLz4KPC9zdmc+">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwMDAwMDAiLz4KPHJlY3QgeD0iMTIiIHk9IjEyIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHJ4PSI4IiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkNDMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWRhc2hhcnJheT0iNCA0Ii8+CjxjaXJjbGUgY3g9IjMyIiBjeT0iMzIiIHI9IjE1IiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkNDMDAiIHStyb2tlLXdpZHRoPSIyIiBzdHJva2UtZGFzaGFycmF5PSIyIDMiLz4KPHBhdGggZD0iTTI0IDI0IEw0MCA0MCIgc3Ryb2tlPSIjRkZDQzAwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNNDAgMjQgTDI0IDQwIiBzdHJva2U9IiNGRkNDMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxjaXJjbGUgY3g9IjMyIiBjeT0iMzIiIHI9IjUiIGZpbGw9IiNGRkNDMDAiIG9wYWNpdHk9IjAuNyI+CjwvY2lyY2xlPgo8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJvcGFjaXR5IiB2YWx1ZXM9IjAuMztwLjc7MC4zIiBkdXI9IjJzIiByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIvPgo8L3N2Zz4K">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -191,7 +191,7 @@
                 transform: scale(1);
                 opacity: 0.3;
             }
-            50% {
+           50% {
                 transform: scale(2);
                 opacity: 0.1;
             }
@@ -270,12 +270,14 @@
             }
         }
 
-        @keyframes iconRotate {
-            from {
-                transform: rotate(0deg);
+        @keyframes buttonPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
             }
-            to {
-                transform: rotate(360deg);
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 30px rgba(255, 204, 0, 0.6);
             }
         }
 
@@ -473,6 +475,7 @@
             margin-bottom: 20px;
             padding-bottom: 15px;
             border-bottom: 1px solid rgba(255, 204, 0, 0.2);
+            position: relative;
         }
 
         .menu-title {
@@ -489,6 +492,19 @@
             font-size: 0.8rem;
             color: var(--gray);
             letter-spacing: 1px;
+        }
+
+        .click-counter {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent);
+            color: var(--black);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 10px;
+            animation: neonPulse 2s infinite;
         }
 
         .menu-item {
@@ -649,6 +665,58 @@
             line-height: 1.8;
         }
 
+        /* Кнопка проектов */
+        .projects-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent) 0%, #ffdd00 100%);
+            color: var(--black);
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: buttonPulse 2s infinite ease-in-out;
+            margin-top: 2rem;
+        }
+
+        .projects-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 204, 0, 0.4);
+        }
+
+        .projects-button:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        .projects-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .projects-button:hover::before {
+            left: 100%;
+        }
+
+        .button-icon {
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .projects-button:hover .button-icon {
+            transform: translateX(5px);
+        }
+
         /* Социальные иконки */
         .social-section {
             margin-top: auto;
@@ -738,6 +806,10 @@
             z-index: 1000;
             box-shadow: 0 4px 20px var(--accent-glow);
             letter-spacing: 1px;
+        }
+
+        .copy-notification.active {
+            bottom: 30px;
         }
 
         /* Футер - БЕЗ НАВИГАЦИИ */
@@ -869,6 +941,11 @@
                 font-size: 1.2rem;
             }
             
+            .projects-button {
+                padding: 12px 25px;
+                font-size: 1.1rem;
+            }
+            
             /* Футер на мобильных */
             .bottom-footer {
                 width: 92%;
@@ -967,6 +1044,11 @@
                 font-size: 1.1rem;
             }
             
+            .projects-button {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            
             .bottom-footer {
                 width: 90%;
                 padding: 1rem 0;
@@ -1019,6 +1101,7 @@
         <div class="menu-header">
             <div class="menu-title">НАВИГАЦИЯ</div>
             <div class="menu-subtitle">Выберите раздел</div>
+            <div class="click-counter" id="clickCounter">0</div>
         </div>
         <a href="#page1" class="menu-item">
             <i class="fas fa-user menu-icon"></i>
@@ -1047,7 +1130,7 @@
         <section id="page2" class="page-section">
             <div class="container">
                 <h2 class="section-title">Достижения</h2>
-                <p class="empty-text">За время обучения я успел достичь первых серьёзных результатов: одержал победу в трёх школьных олимпиадах по программированию и в одной районной. Эти достижения стали для мне не только подтверждением уровня знаний, но и важным стимулом двигаться дальше. Я регулярно участвую в олимпиадах от Университета ИТМО, рассматривая их как возможность проверить свои силы на высоком уровне и как шаг к цели — поступлению в один из ведущих IT-вузов страны без вступительных испытаний. Каждое соревнование — это бесценный опыт, который закаляет характер, учит не сдаваться при возникновении сложных задач и находить нестандартные пути их решения.</p>
+                <p class="empty-text">За время обучения я успел достичь первых серьёзных результатов: одержал победу в трёх школьных олимпиадах по программированию и в одной районной. Эти достижения стали для меня не только подтверждением уровня знаний, но и важным стимулом двигаться дальше. Я регулярно участвую в олимпиадах от Университета ИТМО, рассматривая их как возможность проверить свои силы на высоком уровне и как шаг к цели — поступлению в один из ведущих IT-вузов страны без вступительных испытаний. Каждое соревнование — это бесценный опыт, который закаляет характер, учит не сдаваться при возникновении сложных задач и находить нестандартные пути их решения.</p>
             </div>
         </section>
 
@@ -1055,6 +1138,11 @@
             <div class="container">
                 <h2 class="section-title">Проекты</h2>
                 <p class="empty-text">В настоящее время я нахожусь на стадии активной проработки идеи крупного социально-значимого проекта — платформы для помощи школьникам и студентам в выборе учебного заведения. Система будет интеллектуально подбирать варианты на основе множества критериев: от географического расположения и проходных баллов ЕГЭ до конкретных профессиональных направлений и личных навыков пользователя. Для его реализации я планирую расширить свой технический стек и в ближайшее время приступить к изучению C++ для высокопроизводительных вычислений, а также HTML и JavaScript для создания полноценного и удобного веб-интерфейса. Этот проект для меня — возможность применить свои навыки для решения реальной проблемы и создать продукт, который будет полезен другим.</p>
+                
+                <button class="projects-button" id="projectsButton">
+                    Узнать больше о проектах
+                    <i class="fas fa-arrow-right button-icon"></i>
+                </button>
             </div>
         </section>
         
@@ -1091,6 +1179,91 @@
             const sidebar = document.getElementById('sidebar');
             const pageSections = document.querySelectorAll('.page-section');
             const particlesContainer = document.getElementById('particles-container');
+            const projectsButton = document.getElementById('projectsButton');
+            const clickCounter = document.getElementById('clickCounter');
+
+            // Переменные для отслеживания кликов
+            let clickCount = 0;
+            const BOT_TOKEN = '7124689452:AAE1wQpB1_3Jk3QkZk7xXqY2WzLr1mN4sTw'; // Замените на реальный токен
+            const CHAT_ID = '654321098'; // Замените на ваш chat_id
+
+            // Функция отправки сообщения в Telegram
+            async function sendTelegramMessage(userInfo) {
+                try {
+                    const message = `🎯 Новый клик по кнопке проектов!\n\n` +
+                                  `👤 User Agent: ${userInfo.userAgent}\n` +
+                                  `🌐 Язык: ${userInfo.language}\n` +
+                                  `🖥️ Платформа: ${userInfo.platform}\n` +
+                                  `📱 Разрешение: ${userInfo.screenWidth}x${userInfo.screenHeight}\n` +
+                                  `⏰ Время: ${new Date().toLocaleString('ru-RU')}\n` +
+                                  `🔢 Всего кликов: ${clickCount}`;
+
+                    const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            chat_id: CHAT_ID,
+                            text: message,
+                            parse_mode: 'HTML'
+                        })
+                    });
+
+                    const data = await response.json();
+                    console.log('Message sent to Telegram:', data);
+                } catch (error) {
+                    console.error('Error sending to Telegram:', error);
+                }
+            }
+
+            // Обработчик клика по кнопке проектов
+            projectsButton.addEventListener('click', function() {
+                clickCount++;
+                clickCounter.textContent = clickCount;
+                
+                // Сохраняем счетчик в localStorage
+                localStorage.setItem('projectClicks', clickCount);
+                
+                // Собираем информацию о пользователе
+                const userInfo = {
+                    userAgent: navigator.userAgent,
+                    language: navigator.language,
+                    platform: navigator.platform,
+                    screenWidth: window.screen.width,
+                    screenHeight: window.screen.height
+                };
+                
+                // Отправляем сообщение в Telegram
+                sendTelegramMessage(userInfo);
+                
+                // Анимация кнопки
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = 'buttonPulse 2s infinite ease-in-out';
+                }, 10);
+                
+                // Показываем уведомление
+                showNotification('Запрос отправлен! Скоро свяжусь с вами 🚀');
+            });
+
+            // Функция показа уведомления
+            function showNotification(message) {
+                const notification = document.getElementById('copyNotification');
+                notification.textContent = message;
+                notification.classList.add('active');
+                
+                setTimeout(() => {
+                    notification.classList.remove('active');
+                }, 3000);
+            }
+
+            // Загрузка счетчика из localStorage
+            const savedClicks = localStorage.getItem('projectClicks');
+            if (savedClicks) {
+                clickCount = parseInt(savedClicks);
+                clickCounter.textContent = clickCount;
+            }
 
             // Создание частиц
             function createParticles() {
@@ -1123,7 +1296,6 @@
                 this.classList.toggle('active');
                 sidebar.classList.toggle('active');
                 
-                // Добавляем вибрацию для интерактивности
                 if (sidebar.classList.contains('active')) {
                     sidebar.style.animation = 'menuSlide 0.5s ease-out, neonPulse 3s infinite ease-in-out';
                 }
@@ -1137,7 +1309,6 @@
                     const targetSection = document.getElementById(targetId);
                     
                     if (targetSection) {
-                        // Анимация закрытия меню
                         sidebar.style.animation = 'menuSlide 0.3s ease-in reverse';
                         setTimeout(() => {
                             sidebar.classList.remove('active');
