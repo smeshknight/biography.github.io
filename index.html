@@ -22,6 +22,7 @@
             --accent-glow: rgba(255, 204, 0, 0.3);
             --menu-bg: rgba(15, 15, 15, 0.95);
             --nav-bg: rgba(15, 15, 15, 0.98);
+            --neon-glow: 0 0 10px var(--accent), 0 0 20px var(--accent), 0 0 30px var(--accent);
         }
 
         body {
@@ -231,23 +232,41 @@
 
         @keyframes menuSlide {
             from {
-                transform: translateX(100%);
+                transform: translateX(100%) scale(0.9);
                 opacity: 0;
             }
             to {
-                transform: translateX(0);
+                transform: translateX(0) scale(1);
                 opacity: 1;
             }
         }
 
         @keyframes menuItemSlide {
             from {
-                transform: translateX(30px);
+                transform: translateX(30px) scale(0.8);
                 opacity: 0;
             }
             to {
-                transform: translateX(0);
+                transform: translateX(0) scale(1);
                 opacity: 1;
+            }
+        }
+
+        @keyframes neonPulse {
+            0%, 100% {
+                box-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent);
+            }
+            50% {
+                box-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent), 0 0 45px var(--accent);
+            }
+        }
+
+        @keyframes iconBounce {
+            0%, 100% {
+                transform: translateX(0) scale(1);
+            }
+            50% {
+                transform: translateX(-3px) scale(1.1);
             }
         }
 
@@ -402,24 +421,25 @@
             margin-left: 0;
         }
 
-        /* Боковое меню - МИНИМАЛИСТИЧНЫЙ ОСТРОВОК */
+        /* Боковое меню - ПЕРЕРАБОТАННЫЙ СТИЛЬ */
         .sidebar {
             position: fixed;
             right: -100%;
-            top: 120px; /* ЕЩЕ НИЖЕ - было 100px */
+            top: 120px;
             height: auto;
-            width: 220px;
-            background: var(--nav-bg);
+            width: 280px;
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.98) 0%, rgba(15, 15, 15, 0.98) 100%);
             transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
             z-index: 999;
-            padding: 25px 15px;
+            padding: 30px 20px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
+            gap: 15px;
+            backdrop-filter: blur(25px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 204, 0, 0.15);
+            border-radius: 20px;
+            animation: neonPulse 3s infinite ease-in-out;
         }
 
         .sidebar::before {
@@ -429,44 +449,69 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255, 204, 0, 0.03) 0%, transparent 50%);
-            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(255, 204, 0, 0.08) 0%, transparent 70%);
+            border-radius: 20px;
             pointer-events: none;
         }
 
         .sidebar.active {
             right: 20px;
-            animation: menuSlide 0.4s ease-out;
+            animation: menuSlide 0.5s ease-out, neonPulse 3s infinite ease-in-out;
+        }
+
+        .menu-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 204, 0, 0.2);
+        }
+
+        .menu-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .menu-subtitle {
+            font-size: 0.8rem;
+            color: var(--gray);
+            letter-spacing: 1px;
         }
 
         .menu-item {
             color: var(--white);
             text-decoration: none;
-            font-size: 1rem;
-            font-weight: 400;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            padding: 12px 15px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            padding: 15px 20px;
             position: relative;
             transition: all 0.3s ease;
-            border-radius: 6px;
-            background: transparent;
-            border: none;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transform: translateX(30px);
             opacity: 0;
-            animation: menuItemSlide 0.4s ease-out forwards;
-            text-align: center;
+            animation: menuItemSlide 0.5s ease-out forwards;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        .sidebar.active .menu-item:nth-child(1) { animation-delay: 0.1s; }
-        .sidebar.active .menu-item:nth-child(2) { animation-delay: 0.15s; }
+        .sidebar.active .menu-item:nth-child(2) { animation-delay: 0.1s; }
         .sidebar.active .menu-item:nth-child(3) { animation-delay: 0.2s; }
+        .sidebar.active .menu-item:nth-child(4) { animation-delay: 0.3s; }
 
         .menu-item:hover {
-            transform: translateX(5px) !important;
+            transform: translateX(5px) scale(1.05) !important;
             color: var(--accent);
-            background: rgba(255, 204, 0, 0.05);
-            box-shadow: 0 2px 10px rgba(255, 204, 0, 0.1);
+            background: rgba(255, 204, 0, 0.1);
+            border-color: var(--accent);
+            box-shadow: 0 5px 20px rgba(255, 204, 0, 0.2);
         }
 
         .menu-item::before {
@@ -474,22 +519,52 @@
             position: absolute;
             left: -8px;
             top: 50%;
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background: var(--accent);
             border-radius: 50%;
             transform: translateY(-50%) scale(0);
-            transition: transform 0.2s ease;
-            box-shadow: 0 0 8px var(--accent);
+            transition: transform 0.3s ease;
+            box-shadow: 0 0 15px var(--accent);
         }
 
         .menu-item:hover::before {
-            transform: translateY(-50%) scale(1);
+            transform: translateY(-50%) scale(1.2);
+        }
+
+        .menu-icon {
+            font-size: 1.2rem;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover .menu-icon {
+            color: var(--accent);
+            animation: iconBounce 0.5s ease;
+            filter: drop-shadow(0 0 5px var(--accent));
+        }
+
+        .menu-text {
+            flex: 1;
+        }
+
+        .menu-badge {
+            background: var(--accent);
+            color: var(--black);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 10px;
+            animation: neonPulse 2s infinite ease-in-out;
         }
 
         /* Основной контент */
         .main-content {
-            margin-top: 120px; /* Увеличил отступ сверху */
+            margin-top: 120px;
             padding: 1rem 2rem;
             flex: 1;
         }
@@ -509,8 +584,8 @@
         /* ИСПРАВЛЕНИЕ: убрал отрицательный margin-top для первой секции */
         #page1 {
             min-height: 60vh;
-            padding-top: 2rem; /* Добавил отступ сверху */
-            margin-top: 2rem; /* Добавил отступ сверху */
+            padding-top: 2rem;
+            margin-top: 2rem;
             margin-bottom: 8rem;
         }
 
@@ -748,7 +823,7 @@
             }
             
             .main-content {
-                margin-top: 100px; /* Увеличил для мобильных */
+                margin-top: 100px;
                 padding: 1rem;
             }
             
@@ -770,8 +845,8 @@
             }
             
             .sidebar {
-                width: 200px;
-                padding: 20px 12px;
+                width: 250px;
+                padding: 25px 15px;
                 top: 100px;
                 right: -100%;
             }
@@ -781,8 +856,12 @@
             }
             
             .menu-item {
-                font-size: 0.9rem;
-                padding: 10px 12px;
+                font-size: 1rem;
+                padding: 12px 15px;
+            }
+            
+            .menu-title {
+                font-size: 1.2rem;
             }
             
             /* Футер на мобильных */
@@ -836,7 +915,7 @@
             }
             
             .main-content {
-                margin-top: 90px; /* Увеличил для маленьких экранов */
+                margin-top: 90px;
                 padding: 0.5rem;
             }
             
@@ -858,8 +937,8 @@
             }
             
             .sidebar {
-                width: 180px;
-                padding: 18px 10px;
+                width: 220px;
+                padding: 20px 12px;
                 top: 90px;
             }
             
@@ -868,8 +947,19 @@
             }
             
             .menu-item {
-                font-size: 0.85rem;
-                padding: 8px 10px;
+                font-size: 0.9rem;
+                padding: 10px 12px;
+                gap: 10px;
+            }
+            
+            .menu-icon {
+                font-size: 1rem;
+                width: 20px;
+                height: 20px;
+            }
+            
+            .menu-title {
+                font-size: 1.1rem;
             }
             
             .bottom-footer {
@@ -919,11 +1009,25 @@
         </div>
     </nav>
 
-    <!-- Боковое меню - МИНИМАЛИСТИЧНЫЙ ОСТРОВОК -->
+    <!-- Боковое меню - ПЕРЕРАБОТАННЫЙ СТИЛЬ -->
     <aside class="sidebar" id="sidebar">
-        <a href="#page1" class="menu-item">О себе</a>
-        <a href="#page2" class="menu-item">Достижения</a>
-        <a href="#page3" class="menu-item">Проекты</a>
+        <div class="menu-header">
+            <div class="menu-title">НАВИГАЦИЯ</div>
+            <div class="menu-subtitle">Выберите раздел</div>
+        </div>
+        <a href="#page1" class="menu-item">
+            <i class="fas fa-user menu-icon"></i>
+            <span class="menu-text">О себе</span>
+            <span class="menu-badge">NEW</span>
+        </a>
+        <a href="#page2" class="menu-item">
+            <i class="fas fa-trophy menu-icon"></i>
+            <span class="menu-text">Достижения</span>
+        </a>
+        <a href="#page3" class="menu-item">
+            <i class="fas fa-code menu-icon"></i>
+            <span class="menu-text">Проекты</span>
+        </a>
     </aside>
 
     <!-- Основной контент -->
@@ -938,7 +1042,7 @@
         <section id="page2" class="page-section">
             <div class="container">
                 <h2 class="section-title">Достижения</h2>
-                <p class="empty-text">За время обучения я успел достичь первых серьёзных результатов: одержал победу в трёх школьных олимпиадах по программированию и в одной районной. Эти достижения стали для меня не только подтверждением уровня знаний, но и важным стимулом двигаться дальше. Я регулярно участвую в олимпиадах от Университета ИТМО, рассматривая их как возможность проверить свои силы на высоком уровне и как шаг к цели — поступлению в один из ведущих IT-вузов страны без вступительных испытаний. Каждое соревнование — это бесценный опыт, который закаляет характер, учит не сдаваться при возникновении сложных задач и находить нестандартные пути их решения.</p>
+                <p class="empty-text">За время обучения я успел достичь первых серьёзных результатов: одержал победу в трёх школьных олимпиадах по программированию и в одной районной. Эти достижения стали для мне не только подтверждением уровня знаний, но и важным стимулом двигаться дальше. Я регулярно участвую в олимпиадах от Университета ИТМО, рассматривая их как возможность проверить свои силы на высоком уровне и как шаг к цели — поступлению в один из ведущих IT-вузов страны без вступительных испытаний. Каждое соревнование — это бесценный опыт, который закаляет характер, учит не сдаваться при возникновении сложных задач и находить нестандартные пути их решения.</p>
             </div>
         </section>
 
@@ -1013,6 +1117,11 @@
                 e.stopPropagation();
                 this.classList.toggle('active');
                 sidebar.classList.toggle('active');
+                
+                // Добавляем вибрацию для интерактивности
+                if (sidebar.classList.contains('active')) {
+                    sidebar.style.animation = 'menuSlide 0.5s ease-out, neonPulse 3s infinite ease-in-out';
+                }
             });
 
             // Закрытие меню при клике на ссылку
@@ -1023,15 +1132,19 @@
                     const targetSection = document.getElementById(targetId);
                     
                     if (targetSection) {
-                        sidebar.classList.remove('active');
-                        burgerMenu.classList.remove('active');
+                        // Анимация закрытия меню
+                        sidebar.style.animation = 'menuSlide 0.3s ease-in reverse';
+                        setTimeout(() => {
+                            sidebar.classList.remove('active');
+                            burgerMenu.classList.remove('active');
+                        }, 200);
                         
                         setTimeout(() => {
                             targetSection.scrollIntoView({
                                 behavior: 'smooth',
                                 block: 'start'
                             });
-                        }, 200);
+                        }, 300);
                     }
                 });
             });
@@ -1053,16 +1166,22 @@
                 if (sidebar.classList.contains('active') && 
                     !sidebar.contains(e.target) && 
                     !burgerMenu.contains(e.target)) {
-                    sidebar.classList.remove('active');
-                    burgerMenu.classList.remove('active');
+                    sidebar.style.animation = 'menuSlide 0.3s ease-in reverse';
+                    setTimeout(() => {
+                        sidebar.classList.remove('active');
+                        burgerMenu.classList.remove('active');
+                    }, 200);
                 }
             });
 
             // Закрытие меню при нажатии Escape
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && sidebar.classList.contains('active')) {
-                    sidebar.classList.remove('active');
-                    burgerMenu.classList.remove('active');
+                    sidebar.style.animation = 'menuSlide 0.3s ease-in reverse';
+                    setTimeout(() => {
+                        sidebar.classList.remove('active');
+                        burgerMenu.classList.remove('active');
+                    }, 200);
                 }
             });
 
